@@ -1,0 +1,507 @@
+{
+  "zebra": {
+    "RM-CLOS-IN": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 0,
+      "processedChange": false,
+      "rules": [
+        {
+          "action": "Continue to next entry",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-ANY_IPV6"
+          ],
+          "sequenceNumber": 10,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 20,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 30,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 40,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 50,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 60,
+          "setClauses": [],
+          "type": "deny"
+        }
+      ]
+    },
+    "RM-CLOS-OUT": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 0,
+      "processedChange": false,
+      "rules": [
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 10,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 20,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 30,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-LOOPBACK_IPV4"
+          ],
+          "sequenceNumber": 40,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-LOOPBACK_IPV6"
+          ],
+          "sequenceNumber": 50,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-SERVER_IPV4"
+          ],
+          "sequenceNumber": 60,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-SERVER_IPV6"
+          ],
+          "sequenceNumber": 70,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 80,
+          "setClauses": [],
+          "type": "deny"
+        }
+      ]
+    },
+    "RM-SERVER-OUT": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 0,
+      "processedChange": false,
+      "rules": [
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-DEFAULT"
+          ],
+          "sequenceNumber": 10,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-DEFAULT_IPV6"
+          ],
+          "sequenceNumber": 20,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-AGGREGATE_IPV4"
+          ],
+          "sequenceNumber": 30,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-AGGREGATE_IPV6"
+          ],
+          "sequenceNumber": 40,
+          "setClauses": [],
+          "type": "permit"
+        }
+      ]
+    },
+    "RM-SERVER_198_51_100_10-IN": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 0,
+      "processedChange": false,
+      "rules": [
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-SERVER_IPV4"
+          ],
+          "sequenceNumber": 10,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-SERVER_IPV6"
+          ],
+          "sequenceNumber": 20,
+          "setClauses": [],
+          "type": "permit"
+        }
+      ]
+    }
+  }
+}
+
+{
+  "bgpd": {
+    "RM-CLOS-IN": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 18614,
+      "processedChange": true,
+      "rules": [
+        {
+          "action": "Continue to next entry",
+          "cpuTimeMS": 13,
+          "invoked": 6092,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-ANY_IPV6"
+          ],
+          "sequenceNumber": 10,
+          "setClauses": [
+            "ipv6 next-hop prefer-global (null)"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 8,
+          "invoked": 13037,
+          "matchClauses": [
+            "community CL-64512_LOCAL"
+          ],
+          "sequenceNumber": 20,
+          "setClauses": [
+            "local-preference 100"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 32,
+          "invoked": 10926,
+          "matchClauses": [
+            "community CL-VIP_MAIN"
+          ],
+          "sequenceNumber": 30,
+          "setClauses": [
+            "local-preference 150"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 127,
+          "matchClauses": [
+            "community CL-EXAMPLE_SERVICE"
+          ],
+          "sequenceNumber": 40,
+          "setClauses": [
+            "local-preference 100"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 4,
+          "matchClauses": [
+            "community CL-64512_DEFAULT"
+          ],
+          "sequenceNumber": 50,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [],
+          "sequenceNumber": 60,
+          "setClauses": [],
+          "type": "deny"
+        }
+      ]
+    },
+    "RM-CLOS-OUT": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 18656,
+      "processedChange": true,
+      "rules": [
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 8,
+          "invoked": 7569,
+          "matchClauses": [
+            "community CL-64512_LOCAL"
+          ],
+          "sequenceNumber": 10,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 37,
+          "invoked": 11033,
+          "matchClauses": [
+            "community CL-EXAMPLE_SERVICE"
+          ],
+          "sequenceNumber": 20,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 4,
+          "matchClauses": [
+            "community CL-64512_DEFAULT"
+          ],
+          "sequenceNumber": 30,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 2,
+          "matchClauses": [
+            "ip address prefix-list PF-LOOPBACK_IPV4"
+          ],
+          "sequenceNumber": 40,
+          "setClauses": [
+            "community 64512:100 64512:400"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-LOOPBACK_IPV6"
+          ],
+          "sequenceNumber": 50,
+          "setClauses": [
+            "community 64512:100 64512:400"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 2,
+          "matchClauses": [
+            "ip address prefix-list PF-SERVER_IPV4"
+          ],
+          "sequenceNumber": 60,
+          "setClauses": [
+            "community 64512:100 64512:401"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-SERVER_IPV6"
+          ],
+          "sequenceNumber": 70,
+          "setClauses": [
+            "community 64512:100 64512:401"
+          ],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 46,
+          "matchClauses": [],
+          "sequenceNumber": 80,
+          "setClauses": [],
+          "type": "deny"
+        }
+      ]
+    },
+    "RM-SERVER-OUT": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 0,
+      "processedChange": false,
+      "rules": [
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-DEFAULT"
+          ],
+          "sequenceNumber": 10,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-DEFAULT_IPV6"
+          ],
+          "sequenceNumber": 20,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-AGGREGATE_IPV4"
+          ],
+          "sequenceNumber": 30,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-AGGREGATE_IPV6"
+          ],
+          "sequenceNumber": 40,
+          "setClauses": [],
+          "type": "permit"
+        }
+      ]
+    },
+    "RM-SERVER_198_51_100_10-IN": {
+      "cpuTimeMS": 0,
+      "disabledOptimization": false,
+      "invoked": 0,
+      "processedChange": false,
+      "rules": [
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ip address prefix-list PF-SERVER_IPV4"
+          ],
+          "sequenceNumber": 10,
+          "setClauses": [],
+          "type": "permit"
+        },
+        {
+          "action": "Exit routemap",
+          "cpuTimeMS": 0,
+          "invoked": 0,
+          "matchClauses": [
+            "ipv6 address prefix-list PF-SERVER_IPV6"
+          ],
+          "sequenceNumber": 20,
+          "setClauses": [],
+          "type": "permit"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "PORT|Ethernet0": {
+    "expireat": 1786545923.4726336,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp1",
+      "description": "LOCAL:sp01-15-p02-dc1-pnet.example.net:Ethernet16",
+      "fec": "rs",
+      "index": "1",
+      "lanes": "0,1,2,3",
+      "mtu": "9100",
+      "speed": "100000"
+    }
+  },
+  "PORT|Ethernet100": {
+    "expireat": 1786545923.471682,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp26",
+      "description": "LOCAL:ra01-15-p02-dc1-mnet.example.net:et-0/1/0",
+      "index": "26",
+      "lanes": "100,101,102,103",
+      "mtu": "1500",
+      "speed": "40000"
+    }
+  },
+  "PORT|Ethernet32": {
+    "expireat": 1786545923.4736423,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp9",
+      "description": "LOCAL:sp02-15-p02-dc1-pnet.example.net:Ethernet16",
+      "fec": "rs",
+      "index": "9",
+      "lanes": "32,33,34,35",
+      "mtu": "9100",
+      "speed": "100000"
+    }
+  },
+  "PORT|Ethernet64": {
+    "expireat": 1786545923.4731796,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp17",
+      "description": "UNUSED:to_L3-SP03",
+      "fec": "rs",
+      "index": "17",
+      "lanes": "64,65,66,67",
+      "mtu": "9100",
+      "speed": "100000"
+    }
+  },
+  "PORT|Ethernet8": {
+    "expireat": 1786545923.473504,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3a",
+      "description": "SERVER:server1:eth0",
+      "index": "3",
+      "lanes": "8",
+      "mtu": "9000",
+      "speed": "25000"
+    }
+  },
+  "PORT|Ethernet9": {
+    "expireat": 1786545923.4723046,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3b",
+      "description": "SERVER:server2:eth0",
+      "index": "3",
+      "lanes": "9",
+      "mtu": "9000",
+      "speed": "25000"
+    }
+  }
+}

@@ -4,26 +4,18 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"regexp"
 	"strings"
 	"time"
 
-	"github.com/premday/sonic-tools/internal/fetcher"
+	"github.com/premday/sonic-tools/internal/view"
+	"github.com/premday/sonic-tools/sonic"
 
-	"github.com/charmbracelet/lipgloss"
-	"github.com/charmbracelet/lipgloss/table"
 	redis "github.com/redis/go-redis/v9"
 	"github.com/spf13/cobra"
 )
 
-var (
-	tblHeaderStyle = lipgloss.NewStyle().PaddingLeft(1).PaddingRight(1)
-	tblCellStyle   = lipgloss.NewStyle().PaddingLeft(1).PaddingRight(1)
-	tblBorderStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("238"))
-
-	summaryStyle = lipgloss.NewStyle().Faint(true).MarginTop(1)
-)
+const timeout = 60 * time.Second
 
 type descriptionResult struct {
 	Interface      string
@@ -33,229 +25,169 @@ type descriptionResult struct {
 }
 
 func renderResults(results []descriptionResult, dryRun bool) string {
-	var buf strings.Builder
-
-	lt := table.New().
-		Border(lipgloss.RoundedBorder()).
-		BorderStyle(tblBorderStyle).
-		Headers("Interface", "Old description", "New description").
-		StyleFunc(func(row, col int) lipgloss.Style {
-			if row == table.HeaderRow {
-				return tblHeaderStyle
-			}
-			return tblCellStyle
-		})
-
-	for _, r := range results {
-		oldDescr := r.OldDescription
-		if oldDescr == "" {
-			oldDescr = "-"
-		}
-		newDescr := r.NewDescription
-		if newDescr == "" {
-			newDescr = "-"
-		}
-		if r.Status == "unchanged" {
+	t := view.NewTable("Interface", "Old description", "New description", "Status")
+	changed := 0
+	for _, result := range results {
+		newDescr := result.NewDescription
+		if result.Status == "unchanged" {
 			newDescr = "unchanged"
 		}
-		lt.Row(r.Interface, oldDescr, newDescr)
-	}
-
-	buf.WriteString(lt.String() + "\n")
-
-	changed, total := 0, len(results)
-	for _, r := range results {
-		if r.Status == "updated" || r.Status == "dry-run" {
+		if result.Status == "updated" || result.Status == "dry-run" {
 			changed++
 		}
+		t.Row(result.Interface, result.OldDescription, newDescr, result.Status)
 	}
 
-	summary := fmt.Sprintf("%d / %d interfaces changed", changed, total)
+	summary := fmt.Sprintf("%d / %d interfaces changed", changed, len(results))
 	if dryRun {
 		summary += " (dry-run)"
 	}
-	buf.WriteString(summaryStyle.Render(summary) + "\n")
 
-	return buf.String()
+	return t.String() + "\n" + view.Comment(summary)
 }
 
-// sanitizeDescription removes any characters that are not alphanumeric, colon, hyphen, or dot.
+// descrRegex matches any character which is not alphanumeric, colon, hyphen, or dot.
 var descrRegex = regexp.MustCompile(`[^a-zA-Z0-9:\-\.]+`)
 
 func sanitizeDescription(description string) string {
 	return descrRegex.ReplaceAllString(description, "")
 }
 
-func getOldDescription(ctx context.Context, rdb *redis.Client, intf string) string {
-	val, err := rdb.HGet(ctx, fmt.Sprintf("PORT|%s", intf), "description").Result()
-	if err != nil {
-		return ""
-	}
-	return val
-}
+func setDescription(ctx context.Context, rdb *redis.Client, intf, description string, dryRun bool) descriptionResult {
+	result := descriptionResult{Interface: intf, NewDescription: sanitizeDescription(description)}
 
-func UpdateDescriptionWithLLDP(ctx context.Context, rdb *redis.Client, lldp fetcher.LLDP, intf, prefix string, dryRun bool) descriptionResult {
-	result := descriptionResult{
-		Interface:      intf,
-		OldDescription: getOldDescription(ctx, rdb, intf),
-	}
-
-	remoteHost, remoteIntf := lldp.ExtractInterfaceNeighbor(intf)
-	if remoteHost == "" {
-		result.Status = "skipped"
-		result.NewDescription = result.OldDescription
-		return result
-	}
-
-	description := remoteHost
-	if remoteIntf != "N/A" && remoteIntf != "" {
-		description = fmt.Sprintf("%s:%s", description, remoteIntf)
-	}
-
-	if prefix != "" {
-		description = fmt.Sprintf("%s%s", prefix, description)
-	}
-
-	description = sanitizeDescription(description)
-	result.NewDescription = description
-
-	return SetInterfaceDescription(ctx, rdb, result, dryRun)
-}
-
-func SetInterfaceDescription(ctx context.Context, rdb *redis.Client, result descriptionResult, dryRun bool) descriptionResult {
-	conn := rdb.Conn()
-	defer conn.Close()
-
-	if err := conn.Select(ctx, fetcher.CONFIGDB).Err(); err != nil {
-		result.Status = fmt.Sprintf("failed to select CONFIG_DB: %s", err)
-		return result
-	}
-
-	key := fmt.Sprintf("PORT|%s", result.Interface)
-	exists, err := rdb.Exists(ctx, key).Result()
-	if err != nil || exists == 0 {
-		result.Status = fmt.Sprintf("error: interface %s does not exist", result.Interface)
-		return result
-	}
-
-	result.NewDescription = sanitizeDescription(result.NewDescription)
-
-	if result.NewDescription == result.OldDescription {
-		result.Status = "unchanged"
-		return result
-	}
-
-	if dryRun {
-		result.Status = "dry-run"
-		return result
-	}
-
-	_, err = rdb.HSet(ctx, key, "description", result.NewDescription).Result()
+	port, err := sonic.FindPortConfig(ctx, rdb, intf)
 	if err != nil {
 		result.Status = fmt.Sprintf("error: %s", err)
 		return result
 	}
+	result.OldDescription = port.Description
 
-	result.Status = "updated"
+	switch {
+	case result.NewDescription == result.OldDescription:
+		result.Status = "unchanged"
+	case dryRun:
+		result.Status = "dry-run"
+	default:
+		if err := sonic.SetPortDescription(ctx, rdb, intf, result.NewDescription); err != nil {
+			result.Status = fmt.Sprintf("error: %s", err)
+			return result
+		}
+		result.Status = "updated"
+	}
+
 	return result
 }
 
+// setDescriptionFromLLDP names an interface after its LLDP neighbor: '<prefix><remote host>:<remote port>'.
+func setDescriptionFromLLDP(ctx context.Context, rdb *redis.Client, lldp sonic.LLDP, intf, prefix string, dryRun bool) descriptionResult {
+	neighbor := lldp.Neighbor(intf)
+	if neighbor.Host == "" {
+		port, err := sonic.FindPortConfig(ctx, rdb, intf)
+		if err != nil {
+			return descriptionResult{Interface: intf, Status: fmt.Sprintf("error: %s", err)}
+		}
+		return descriptionResult{
+			Interface:      intf,
+			OldDescription: port.Description,
+			NewDescription: port.Description,
+			Status:         "skipped",
+		}
+	}
+
+	description := prefix + neighbor.Host
+	if port := neighbor.PortName(); port != "" && port != "N/A" {
+		description = fmt.Sprintf("%s:%s", description, port)
+	}
+
+	return setDescription(ctx, rdb, intf, description, dryRun)
+}
+
 func main() {
+	if err := run(); err != nil {
+		log.Fatalln(err)
+	}
+}
+
+func run() error {
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
+	rdb := sonic.NewRedis()
+	defer rdb.Close()
+
 	dryRun := false
 	verbose := false
-	intf := &cobra.Command{Use: "interface", Short: "Edit interfaces"}
 
 	autoDescription := &cobra.Command{
 		Use:   "auto-description <intf|all> [prefix]",
 		Short: "Set interface description using LLDP data",
 		Args:  cobra.RangeArgs(1, 2),
-		Run: func(cmd *cobra.Command, args []string) {
-			lldp, err := fetcher.FetchLLDPNeighbor()
+		RunE: func(_ *cobra.Command, args []string) error {
+			lldp, err := sonic.LLDPNeighbors()
 			if err != nil {
-				fmt.Printf("LLDP failure: %s\n", err.Error())
-				os.Exit(1)
+				return err
 			}
-
-			rdb := redis.NewClient(&redis.Options{
-				Addr:     "127.0.0.1:6379",
-				Password: "",
-				DB:       fetcher.CONFIGDB,
-			})
-
-			ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
-			defer cancel()
 
 			prefix := ""
 			if len(args) > 1 {
 				prefix = args[1]
 			}
 
-			var results []descriptionResult
-
-			if args[0] == "all" {
-				interfaces, err := fetcher.FetchInterfaceNeighbors(ctx, rdb)
+			results := []descriptionResult{}
+			if args[0] != "all" {
+				results = append(results, setDescriptionFromLLDP(ctx, rdb, lldp, args[0], prefix, dryRun))
+			} else {
+				neighbors, err := sonic.InterfaceNeighbors(ctx, rdb)
 				if err != nil {
-					fmt.Printf("failed to fetch interfaces: %s", err.Error())
-					os.Exit(1)
+					return err
 				}
 
-				for intfName, descr := range interfaces {
+				for intf, descr := range neighbors {
 					if !strings.HasPrefix(descr, prefix) {
 						continue
 					}
 
-					result := UpdateDescriptionWithLLDP(ctx, rdb, lldp, intfName, prefix, dryRun)
+					result := setDescriptionFromLLDP(ctx, rdb, lldp, intf, prefix, dryRun)
 					if result.Status == "skipped" && !verbose {
 						continue
 					}
 					results = append(results, result)
 				}
-			} else {
-				result := UpdateDescriptionWithLLDP(ctx, rdb, lldp, args[0], prefix, dryRun)
-				results = append(results, result)
 			}
 
 			fmt.Print("\n" + renderResults(results, dryRun) + "\n")
+
+			return nil
 		},
 	}
+
 	descrCmd := &cobra.Command{
 		Use:   "description <intf> <description>",
 		Short: "Set interface description",
 		Args:  cobra.ExactArgs(2),
-		Run: func(cmd *cobra.Command, args []string) {
-			rdb := redis.NewClient(&redis.Options{
-				Addr:     "127.0.0.1:6379",
-				Password: "",
-			})
-
-			ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
-			defer cancel()
-
-			result := descriptionResult{
-				Interface:      args[0],
-				OldDescription: getOldDescription(ctx, rdb, args[0]),
-				NewDescription: args[1],
-			}
-			result = SetInterfaceDescription(ctx, rdb, result, dryRun)
-
+		RunE: func(_ *cobra.Command, args []string) error {
+			result := setDescription(ctx, rdb, args[0], args[1], dryRun)
 			fmt.Print("\n" + renderResults([]descriptionResult{result}, dryRun) + "\n")
+
+			return nil
 		},
-	}
-	rootCmd := &cobra.Command{
-		Use:   "premconfig",
-		Short: "Custom SONiC config CLI",
 	}
 
 	autoDescription.Flags().BoolVar(&dryRun, "dry-run", false, "do not apply changes")
 	autoDescription.Flags().BoolVarP(&verbose, "verbose", "v", false, "verbose")
 	descrCmd.Flags().BoolVar(&dryRun, "dry-run", false, "do not apply changes")
 
-	intf.AddCommand(autoDescription)
-	intf.AddCommand(descrCmd)
+	intfCmd := &cobra.Command{Use: "interface", Short: "Edit interfaces"}
+	intfCmd.AddCommand(autoDescription, descrCmd)
 
-	rootCmd.AddCommand(intf)
-
-	if err := rootCmd.Execute(); err != nil {
-		log.Fatalln(err)
+	rootCmd := &cobra.Command{
+		Use:           "premconfig",
+		Short:         "Custom SONiC config CLI",
+		SilenceUsage:  true,
+		SilenceErrors: true,
 	}
+	rootCmd.AddCommand(intfCmd)
+
+	return rootCmd.Execute()
 }

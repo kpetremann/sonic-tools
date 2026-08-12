@@ -1,0 +1,95 @@
+{
+  "PORT|Ethernet0": {
+    "expireat": 1786546037.1669488,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp1",
+      "description": "UNUSED:to_L3-SP01",
+      "dhcp_rate_limit": "300",
+      "fec": "rs",
+      "index": "0",
+      "lanes": "5,6,7,8",
+      "mtu": "9100",
+      "speed": "100000"
+    }
+  },
+  "PORT|Ethernet10": {
+    "expireat": 1786546037.1670864,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3c",
+      "description": "SERVER:server3:eth0",
+      "dhcp_rate_limit": "300",
+      "index": "2",
+      "lanes": "15",
+      "mtu": "9000",
+      "speed": "25000"
+    }
+  },
+  "PORT|Ethernet17": {
+    "expireat": 1786546037.1660743,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp5b",
+      "description": "SERVER:server6:eth0",
+      "dhcp_rate_limit": "300",
+      "index": "4",
+      "lanes": "22",
+      "mtu": "9000",
+      "speed": "25000"
+    }
+  },
+  "PORT|Ethernet64": {
+    "expireat": 1786546037.166331,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp17",
+      "description": "LOCAL:sp03-15-p02-dc1-pnet.example.net:Ethernet16",
+      "dhcp_rate_limit": "300",
+      "fec": "rs",
+      "index": "16",
+      "lanes": "69,70,71,72",
+      "mtu": "9100",
+      "speed": "100000"
+    }
+  },
+  "PORT|Ethernet8": {
+    "expireat": 1786546037.1661568,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3a",
+      "description": "SERVER:server1:eth0",
+      "dhcp_rate_limit": "300",
+      "index": "2",
+      "lanes": "13",
+      "mtu": "9000",
+      "speed": "25000"
+    }
+  },
+  "PORT|Ethernet96": {
+    "expireat": 1786546037.1671677,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp25",
+      "description": "LOCAL:sp04-15-p02-dc1-pnet.example.net:Ethernet16",
+      "dhcp_rate_limit": "300",
+      "fec": "rs",
+      "index": "24",
+      "lanes": "101,102,103,104",
+      "mtu": "9100",
+      "speed": "100000"
+    }
+  }
+}

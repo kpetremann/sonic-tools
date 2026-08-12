@@ -1,0 +1,21 @@
+{
+  "DEVICE_METADATA|localhost": {
+    "expireat": 1786545923.0726924,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "bgp_asn": "4200000001",
+      "buffer_model": "traditional",
+      "default_bgp_status": "up",
+      "default_pfcwd_status": "disable",
+      "deployment_id": "None",
+      "docker_routing_config_mode": "split-unified",
+      "hostname": "ra01-15-p02-dc1-pnet.example.net",
+      "hwsku": "ACS-MSN2700",
+      "mac": "00:00:5e:00:53:00",
+      "platform": "x86_64-mlnx_msn2700-r0",
+      "synchronous_mode": "enable",
+      "type": "ToRRouter"
+    }
+  }
+}

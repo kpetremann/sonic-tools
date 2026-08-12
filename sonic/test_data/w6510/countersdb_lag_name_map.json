@@ -1,0 +1,10 @@
+{
+  "COUNTERS_LAG_NAME_MAP": {
+    "expireat": 1786546042.1868935,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "": ""
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "FAN_INFO|fan1": {
+    "expireat": 1786545927.0725565,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer1",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "25",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|fan2": {
+    "expireat": 1786545927.072775,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer1",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "21",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|fan3": {
+    "expireat": 1786545927.0724258,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer2",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "24",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|fan4": {
+    "expireat": 1786545927.072881,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer2",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "21",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|fan5": {
+    "expireat": 1786545927.0723264,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer3",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "25",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|fan6": {
+    "expireat": 1786545927.0727217,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer3",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "21",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|fan7": {
+    "expireat": 1786545927.072828,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer4",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "24",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|fan8": {
+    "expireat": 1786545927.0726683,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "drawer4",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "21",
+      "speed_target": "30",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|psu1_fan1": {
+    "expireat": 1786545927.0726128,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "N/A",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "30",
+      "speed_target": "60",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  },
+  "FAN_INFO|psu2_fan1": {
+    "expireat": 1786545927.072497,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "intake",
+      "drawer_name": "N/A",
+      "is_replaceable": "False",
+      "led_status": "green",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "30",
+      "speed_target": "60",
+      "speed_tolerance": "50",
+      "status": "True",
+      "timestamp": "20260812 14:44:38"
+    }
+  }
+}

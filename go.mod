@@ -3,7 +3,9 @@ module github.com/premday/sonic-tools
 go 1.26.4
 
 require (
+	github.com/alicebob/miniredis/v2 v2.38.0
 	github.com/charmbracelet/lipgloss v1.1.0
+	github.com/goccy/go-yaml v1.19.2
 	github.com/redis/go-redis/v9 v9.18.0
 	github.com/spf13/cobra v1.10.2
 )
@@ -11,6 +13,7 @@ require (
 require (
 	github.com/clipperhouse/displaywidth v0.10.0 // indirect
 	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
+	github.com/yuin/gopher-lua v1.1.1 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 )
 

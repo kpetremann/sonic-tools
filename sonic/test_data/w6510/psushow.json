@@ -1,0 +1,28 @@
+[
+  {
+    "current": "5.1",
+    "index": "1",
+    "led_status": "green",
+    "model": "PA550II-R",
+    "name": "Psu1",
+    "power": "62.1",
+    "presence": "true",
+    "revision": "21",
+    "serial": "SN00000016000",
+    "status": "OK",
+    "voltage": "12.2"
+  },
+  {
+    "current": "4.8",
+    "index": "2",
+    "led_status": "green",
+    "model": "PA550II-R",
+    "name": "Psu2",
+    "power": "58.2",
+    "presence": "true",
+    "revision": "21",
+    "serial": "SN00000017000",
+    "status": "OK",
+    "voltage": "12.2"
+  }
+]

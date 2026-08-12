@@ -1,0 +1,242 @@
+{
+  "FAN_INFO|Fantray1_1": {
+    "expireat": 1786546040.9293356,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray1",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000014000",
+      "speed": "26",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:29"
+    }
+  },
+  "FAN_INFO|Fantray1_2": {
+    "expireat": 1786546040.929496,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray1",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000014000",
+      "speed": "25",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray2_1": {
+    "expireat": 1786546040.9294155,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray2",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000011000",
+      "speed": "26",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray2_2": {
+    "expireat": 1786546040.9292188,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray2",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000011000",
+      "speed": "25",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray3_1": {
+    "expireat": 1786546040.9293635,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray3",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000015000",
+      "speed": "27",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray3_2": {
+    "expireat": 1786546040.9295201,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray3",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000015000",
+      "speed": "26",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray4_1": {
+    "expireat": 1786546040.9293036,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray4",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000013000",
+      "speed": "26",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray4_2": {
+    "expireat": 1786546040.929444,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray4",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000013000",
+      "speed": "26",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray5_1": {
+    "expireat": 1786546040.9295444,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray5",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000012000",
+      "speed": "27",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|Fantray5_2": {
+    "expireat": 1786546040.929271,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "Fantray5",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "green",
+      "model": "M1HFAN III-R",
+      "presence": "True",
+      "serial": "SN00000012000",
+      "speed": "25",
+      "speed_target": "26",
+      "status": "True",
+      "timestamp": "20260812 14:46:30"
+    }
+  },
+  "FAN_INFO|PSU1_FAN1": {
+    "expireat": 1786546040.9294713,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "N/A",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "N/A",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "31",
+      "speed_target": "31",
+      "status": "True",
+      "timestamp": "20260812 14:46:31"
+    }
+  },
+  "FAN_INFO|PSU2_FAN1": {
+    "expireat": 1786546040.9293902,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "direction": "exhaust",
+      "drawer_name": "N/A",
+      "is_over_speed": "False",
+      "is_replaceable": "True",
+      "is_under_speed": "False",
+      "led_status": "N/A",
+      "model": "N/A",
+      "presence": "True",
+      "serial": "N/A",
+      "speed": "31",
+      "speed_target": "31",
+      "status": "True",
+      "timestamp": "20260812 14:46:31"
+    }
+  }
+}

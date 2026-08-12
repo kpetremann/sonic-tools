@@ -2,57 +2,55 @@ package analyzer
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"net/netip"
 	"slices"
 	"strings"
 
-	"github.com/premday/sonic-tools/internal/fetcher"
-
-	"log"
+	"github.com/premday/sonic-tools/internal/view"
+	"github.com/premday/sonic-tools/sonic"
 )
 
 type routeLocalAsset struct {
-	Host           string
-	Interface      string
-	InterfaceAlias string
-	Addresses      []netip.Prefix
+	Host           string         `json:"host"`
+	Interface      string         `json:"interface"`
+	InterfaceAlias string         `json:"interface_alias"`
+	Addresses      []netip.Prefix `json:"addresses"`
 }
 
 type routeRemoteAsset struct {
-	Host      string
-	Interface string
-	Address   netip.Addr
+	Host      string     `json:"host"`
+	Interface string     `json:"interface"`
+	Address   netip.Addr `json:"address"`
 }
 
 type Route struct {
-	Local   routeLocalAsset
-	Remote  routeRemoteAsset
-	NextHop string
+	Local   routeLocalAsset  `json:"local"`
+	Remote  routeRemoteAsset `json:"remote"`
+	NextHop string           `json:"next_hop"`
 }
 
 type RoutingInfo struct {
-	ip     netip.Addr
 	Routes []Route
 }
 
 func (r RoutingInfo) String() string {
 	var buf strings.Builder
-	buf.WriteString(sectionHeader("Routing"))
+	buf.WriteString(view.Header("Routing"))
 
 	if len(r.Routes) == 0 {
-		buf.WriteString(sectionNotFound("No route found"))
+		buf.WriteString(view.Comment("No route found"))
 		return buf.String()
 	}
 
-	t := newTable("Interface", "Alias", "Address", "Next hop", "LLDP host", "LLDP port")
+	t := view.NewTable("Interface", "Alias", "Address", "Next hop", "LLDP host", "LLDP port")
 	for _, route := range r.Routes {
 		localAddrs := []string{}
 		for _, addr := range route.Local.Addresses {
 			localAddrs = append(localAddrs, addr.String())
 		}
 
-		t.addRow(
+		t.Row(
 			route.Local.Interface,
 			route.Local.InterfaceAlias,
 			strings.Join(localAddrs, "|"),
@@ -67,19 +65,18 @@ func (r RoutingInfo) String() string {
 }
 
 func (a *IPAnalyzer) GetRoutingInfo(ctx context.Context) RoutingInfo {
-	info := RoutingInfo{ip: a.netIP}
+	info := RoutingInfo{}
+
 	for _, gw := range a.routes {
-		localInterfaceAddresses, err := fetcher.GetIPInterface(ctx, a.rdb, gw.LocalInterface)
-		if err != nil {
-			fmt.Printf("failed to get IP address for %s: %s", gw.LocalInterface, err)
-		}
+		// the addresses of every interface are already pre-fetched
 		localAddresses := []string{}
 		localPrefixes := []netip.Prefix{}
-		for _, localAddr := range localInterfaceAddresses {
-			if a.netIP.Is4() == localAddr.Addr().Is4() {
-				localAddresses = append(localAddresses, localAddr.Addr().String())
-				localPrefixes = append(localPrefixes, localAddr)
+		for _, intf := range a.interfaceAddr {
+			if intf.Name != gw.LocalInterface || intf.Prefix.Addr().Is4() != a.netIP.Is4() {
+				continue
 			}
+			localAddresses = append(localAddresses, intf.Prefix.Addr().String())
+			localPrefixes = append(localPrefixes, intf.Prefix)
 		}
 
 		remoteIP, _ := netip.ParseAddr(gw.NextHopIP)
@@ -91,32 +88,33 @@ func (a *IPAnalyzer) GetRoutingInfo(ctx context.Context) RoutingInfo {
 			if !slices.Contains(localAddresses, a.netIP.String()) {
 				remoteIP = a.netIP
 			} else if len(localPrefixes) > 0 {
-				if otherIP, err := fetcher.GetOtherP2PHost(localPrefixes[0]); err == nil {
+				if otherIP, err := sonic.OtherP2PHost(localPrefixes[0]); err == nil {
 					remoteIP = otherIP.Addr()
 				}
 			}
 		}
 
-		intfInfo, err := fetcher.GetInterfaceInformation(ctx, a.rdb, gw.LocalInterface)
+		port, err := sonic.FindPortConfig(ctx, a.rdb, gw.LocalInterface)
 		if err != nil {
-			log.Println("failed to extract interface information")
+			log.Println("failed to extract interface information:", err)
 		}
-		lldpHost, lldpPort := a.lldpNeighbors.ExtractInterfaceNeighbor(gw.LocalInterface)
+		lldp := a.lldpNeighbors.Neighbor(gw.LocalInterface)
 
 		info.Routes = append(info.Routes, Route{
 			Local: routeLocalAsset{
 				Host:           a.localHostname,
 				Interface:      gw.LocalInterface,
-				InterfaceAlias: intfInfo.Alias,
+				InterfaceAlias: port.Alias,
 				Addresses:      localPrefixes,
 			},
 			Remote: routeRemoteAsset{
-				Host:      lldpHost,
-				Interface: lldpPort,
+				Host:      lldp.Host,
+				Interface: lldp.Port,
 				Address:   remoteIP,
 			},
 			NextHop: nextHop,
 		})
 	}
+
 	return info
 }

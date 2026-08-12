@@ -1,0 +1,13 @@
+{
+  "VLAN_TABLE:Vlan506": {
+    "expireat": 1786546039.2586777,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "host_ifname": "",
+      "mac": "00:00:5e:00:53:08",
+      "mtu": "9100"
+    }
+  }
+}

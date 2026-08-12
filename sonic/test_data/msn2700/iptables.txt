@@ -1,0 +1,21 @@
+-P INPUT ACCEPT
+-P FORWARD ACCEPT
+-P OUTPUT ACCEPT
+-A INPUT -s 127.0.0.1/32 -i lo -j ACCEPT
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 0 -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 3 -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 11 -j ACCEPT
+-A INPUT -p udp -m udp --dport 67:68 -j ACCEPT
+-A INPUT -p udp -m udp --dport 546:547 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 179 -j ACCEPT
+-A INPUT -p udp -m udp --dport 33459 -j ACCEPT
+-A INPUT -s 198.18.0.0/16 -p tcp -m tcp --dport 161 -j ACCEPT
+-A INPUT -s 198.18.0.0/16 -p udp -m udp --dport 161 -j ACCEPT
+-A INPUT -s 198.18.0.0/16 -p tcp -m tcp --dport 22 -j ACCEPT
+-A INPUT -m ttl --ttl-lt 2 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 161 -j DROP
+-A INPUT -p udp -m udp --dport 161 -j DROP
+-A INPUT -p tcp -m tcp --dport 22 -j DROP
+-A INPUT -j DROP

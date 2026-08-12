@@ -1,0 +1,47 @@
+{
+  "DEVICE_NEIGHBOR|Ethernet10": {
+    "expireat": 1786546037.583784,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "name": "SERVER:server3:eth0",
+      "port": "eth0"
+    }
+  },
+  "DEVICE_NEIGHBOR|Ethernet17": {
+    "expireat": 1786546037.5841875,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "name": "SERVER:server6:eth0",
+      "port": "eth0"
+    }
+  },
+  "DEVICE_NEIGHBOR|Ethernet64": {
+    "expireat": 1786546037.5839899,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "name": "LOCAL:sp03-15-p02-dc1-pnet.example.net:Ethernet16",
+      "port": "Ethernet16"
+    }
+  },
+  "DEVICE_NEIGHBOR|Ethernet8": {
+    "expireat": 1786546037.5837688,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "name": "SERVER:server1:eth0",
+      "port": "eth0"
+    }
+  },
+  "DEVICE_NEIGHBOR|Ethernet96": {
+    "expireat": 1786546037.5838284,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "name": "LOCAL:sp04-15-p02-dc1-pnet.example.net:Ethernet16",
+      "port": "Ethernet16"
+    }
+  }
+}

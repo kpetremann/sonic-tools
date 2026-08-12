@@ -8,7 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/premday/sonic-tools/internal/fetcher"
+	"github.com/premday/sonic-tools/internal/view"
+	"github.com/premday/sonic-tools/sonic"
 
 	redis "github.com/redis/go-redis/v9"
 )
@@ -33,10 +34,10 @@ type IPAnalyzer struct {
 	rdb *redis.Client
 
 	localHostname    string
-	routes           []fetcher.Route
-	interfaceAddr    []fetcher.InterfaceAddrs
-	lldpNeighbors    fetcher.LLDP
-	resolvedNeighbor fetcher.ResolvedNeighbor
+	routes           []sonic.Route
+	interfaceAddr    []sonic.InterfaceAddr
+	lldpNeighbors    sonic.LLDP
+	resolvedNeighbor sonic.ResolvedNeighbor
 }
 
 // NewIPAnalyzer create an analyze and immediately starts pre-fetching data from the device.
@@ -46,7 +47,7 @@ func NewIPAnalyzer(ctx context.Context, rdb *redis.Client, targetIP string) (IPA
 
 	a.netIP, err = netip.ParseAddr(targetIP)
 	if err != nil {
-		return IPAnalyzer{}, fmt.Errorf("invalid '--ip' value: %w", err)
+		return IPAnalyzer{}, fmt.Errorf("invalid IP address: %w", err)
 	}
 
 	a.localHostname, err = os.Hostname()
@@ -54,23 +55,23 @@ func NewIPAnalyzer(ctx context.Context, rdb *redis.Client, targetIP string) (IPA
 		a.localHostname = "local"
 	}
 
-	routeTable, err := fetcher.FetchIPRoute(a.netIP)
+	routeTable, err := sonic.IPRoute(a.netIP)
 	if err != nil {
 		return IPAnalyzer{}, fmt.Errorf("failed to get route table for %s: %w", targetIP, err)
 	}
-	a.routes = fetcher.ExtractRoutes(routeTable)
+	a.routes = sonic.ExtractRoutes(routeTable)
 
-	a.interfaceAddr, err = fetcher.FetchInterfacesAddrs(ctx, rdb)
+	a.interfaceAddr, err = sonic.InterfacesAddrs(ctx, rdb)
 	if err != nil {
 		return IPAnalyzer{}, err
 	}
 
-	a.resolvedNeighbor, err = fetcher.ResolveNeighborInterface(ctx, rdb, a.netIP)
+	a.resolvedNeighbor, err = sonic.ResolveNeighborInterface(ctx, rdb, a.netIP)
 	if err != nil {
 		log.Println("failed to resolve neighbor interface:", err)
 	}
 
-	a.lldpNeighbors, err = fetcher.FetchLLDPNeighbor()
+	a.lldpNeighbors, err = sonic.LLDPNeighbors()
 	if err != nil {
 		log.Println("failed to get LLDP data:", err)
 	}
@@ -80,19 +81,17 @@ func NewIPAnalyzer(ctx context.Context, rdb *redis.Client, targetIP string) (IPA
 
 // NeighborInfo holds the formatted neighbor resolution result for an IP address.
 type NeighborInfo struct {
-	ip       netip.Addr
-	Neighbor fetcher.ResolvedNeighbor
-	Alias    string
-	LLDPHost string
-	LLDPPort string
+	Neighbor sonic.ResolvedNeighbor `json:"neighbor"`
+	Alias    string                 `json:"alias"`
+	LLDP     sonic.Neighbor         `json:"lldp"`
 }
 
 func (n NeighborInfo) String() string {
 	var buf strings.Builder
-	buf.WriteString(sectionHeader("ARP/NDP/FDB"))
+	buf.WriteString(view.Header("ARP/NDP/FDB"))
 
 	if !n.Neighbor.Found {
-		buf.WriteString(sectionNotFound("Not found"))
+		buf.WriteString(view.Comment("Not found"))
 		return buf.String()
 	}
 
@@ -104,8 +103,8 @@ func (n NeighborInfo) String() string {
 		resolvedFrom = "MAC not found in FDB"
 	}
 
-	t := newTable("MAC", "Interface", "Alias", "Resolved from", "LLDP host", "LLDP port")
-	t.addRow(n.Neighbor.MAC, n.Neighbor.Iface, n.Alias, resolvedFrom, n.LLDPHost, n.LLDPPort)
+	t := view.NewTable("MAC", "Interface", "Alias", "Resolved from", "LLDP host", "LLDP port")
+	t.Row(n.Neighbor.MAC, n.Neighbor.Iface, n.Alias, resolvedFrom, n.LLDP.Host, n.LLDP.Port)
 	buf.WriteString(t.String())
 
 	return buf.String()
@@ -114,19 +113,16 @@ func (n NeighborInfo) String() string {
 // GetNeighborInfo returns the resolved neighbor information for the target IP,
 // including the real physical/logical interface when the neighbor is on a VLAN.
 func (a *IPAnalyzer) GetNeighborInfo(ctx context.Context) NeighborInfo {
-	info := NeighborInfo{
-		ip:       a.netIP,
-		Neighbor: a.resolvedNeighbor,
-	}
+	info := NeighborInfo{Neighbor: a.resolvedNeighbor}
 
 	if a.resolvedNeighbor.Found && a.resolvedNeighbor.Iface != "" {
-		info.LLDPHost, info.LLDPPort = a.lldpNeighbors.ExtractInterfaceNeighbor(a.resolvedNeighbor.Iface)
+		info.LLDP = a.lldpNeighbors.Neighbor(a.resolvedNeighbor.Iface)
 
-		intfInfo, err := fetcher.GetInterfaceInformation(ctx, a.rdb, a.resolvedNeighbor.Iface)
+		port, err := sonic.FindPortConfig(ctx, a.rdb, a.resolvedNeighbor.Iface)
 		if err != nil {
-			log.Println("failed to extract interface information")
+			log.Println("failed to extract interface information:", err)
 		}
-		info.Alias = intfInfo.Alias
+		info.Alias = port.Alias
 	}
 
 	return info
