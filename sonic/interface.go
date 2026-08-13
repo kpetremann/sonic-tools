@@ -81,34 +81,77 @@ type Counters struct {
 	FECSymbolErrors  *uint64 `redis:"SAI_PORT_STAT_IF_IN_FEC_SYMBOL_ERRORS" json:"fec_symbol_errors"`
 }
 
+// interfaceDBs are the four databases the state of an interface is spread over. They are held
+// together so that enriching one port and enriching every port share the same connections.
+type interfaceDBs struct {
+	config, appl, state, counters *redis.Conn
+}
+
+func openInterfaceDBs(ctx context.Context, rdb *redis.Client) (*interfaceDBs, error) {
+	dbs := &interfaceDBs{}
+
+	for _, open := range []struct {
+		conn **redis.Conn
+		db   int
+	}{
+		{&dbs.config, CONFIGDB}, {&dbs.appl, APPLDB},
+		{&dbs.state, STATEDB}, {&dbs.counters, COUNTERSDB},
+	} {
+		conn, err := openDB(ctx, rdb, open.db)
+		if err != nil {
+			dbs.Close()
+			return nil, err
+		}
+		*open.conn = conn
+	}
+
+	return dbs, nil
+}
+
+func (d *interfaceDBs) Close() {
+	for _, conn := range []*redis.Conn{d.config, d.appl, d.state, d.counters} {
+		if conn != nil {
+			conn.Close()
+		}
+	}
+}
+
+// portState returns the state of one port. oids comes from interfaceOIDs, it is read once for
+// a whole collection rather than per port.
+func (d *interfaceDBs) portState(ctx context.Context, lldp LLDP, name string, oids map[string]string) (Interface, error) {
+	intf := Interface{Name: name, Neighbor: lldp.Neighbor(name)}
+	if err := d.config.HGetAll(ctx, "PORT|"+name).Scan(&intf.PortConfig); err != nil {
+		return Interface{}, fmt.Errorf("failed to get configuration of %s: %w", name, err)
+	}
+
+	var err error
+	if intf.OperStatus, err = operStatus(ctx, d.appl, name); err != nil {
+		return Interface{}, err
+	}
+
+	if intf.Optic, err = portOptic(ctx, d.state, name, len(strings.Split(intf.Lanes, ","))); err != nil {
+		return Interface{}, err
+	}
+
+	if oid, exists := oids[name]; exists {
+		if err := d.counters.HGetAll(ctx, "COUNTERS:"+oid).Scan(&intf.Counters); err != nil {
+			return Interface{}, fmt.Errorf("failed to get counters of %s: %w", name, err)
+		}
+	}
+
+	return intf, nil
+}
+
 // Interfaces returns every front panel port with its status, transceiver and counters,
 // and the LLDP neighbor seen on it.
 func Interfaces(ctx context.Context, rdb *redis.Client, lldp LLDP) ([]Interface, error) {
-	config, err := openDB(ctx, rdb, CONFIGDB)
+	dbs, err := openInterfaceDBs(ctx, rdb)
 	if err != nil {
 		return nil, err
 	}
-	defer config.Close()
+	defer dbs.Close()
 
-	appl, err := openDB(ctx, rdb, APPLDB)
-	if err != nil {
-		return nil, err
-	}
-	defer appl.Close()
-
-	state, err := openDB(ctx, rdb, STATEDB)
-	if err != nil {
-		return nil, err
-	}
-	defer state.Close()
-
-	counters, err := openDB(ctx, rdb, COUNTERSDB)
-	if err != nil {
-		return nil, err
-	}
-	defer counters.Close()
-
-	keys, err := scanKeys(ctx, config, "PORT|*")
+	keys, err := scanKeys(ctx, dbs.config, "PORT|*")
 	if err != nil {
 		return nil, err
 	}
@@ -119,54 +162,47 @@ func Interfaces(ctx context.Context, rdb *redis.Client, lldp LLDP) ([]Interface,
 	}
 	sortNames(names)
 
-	oids, err := interfaceOIDs(ctx, counters)
+	oids, err := interfaceOIDs(ctx, dbs.counters)
 	if err != nil {
 		return nil, err
 	}
 
 	interfaces := make([]Interface, 0, len(names))
 	for _, name := range names {
-		intf := Interface{Name: name, Neighbor: lldp.Neighbor(name)}
-		if err := config.HGetAll(ctx, "PORT|"+name).Scan(&intf.PortConfig); err != nil {
-			return nil, fmt.Errorf("failed to get configuration of %s: %w", name, err)
-		}
-
-		intf.OperStatus, err = operStatus(ctx, appl, name)
+		intf, err := dbs.portState(ctx, lldp, name, oids)
 		if err != nil {
 			return nil, err
 		}
-
-		intf.Optic, err = portOptic(ctx, state, name, len(strings.Split(intf.Lanes, ",")))
-		if err != nil {
-			return nil, err
-		}
-
-		if oid, exists := oids[name]; exists {
-			if err := counters.HGetAll(ctx, "COUNTERS:"+oid).Scan(&intf.Counters); err != nil {
-				return nil, fmt.Errorf("failed to get counters of %s: %w", name, err)
-			}
-		}
-
 		interfaces = append(interfaces, intf)
 	}
 
 	return interfaces, nil
 }
 
-// FindInterface returns the aggregated state of a single interface.
+// FindInterface returns the aggregated state of a single interface. It reads that port only,
+// so it does not pay for the ports it is not asked about.
 func FindInterface(ctx context.Context, rdb *redis.Client, lldp LLDP, name string) (Interface, error) {
-	interfaces, err := Interfaces(ctx, rdb, lldp)
+	dbs, err := openInterfaceDBs(ctx, rdb)
+	if err != nil {
+		return Interface{}, err
+	}
+	defer dbs.Close()
+
+	// an absent port would otherwise read as an interface with every field empty
+	exists, err := dbs.config.Exists(ctx, "PORT|"+name).Result()
+	if err != nil {
+		return Interface{}, fmt.Errorf("failed to check interface %s: %w", name, err)
+	}
+	if exists == 0 {
+		return Interface{}, fmt.Errorf("interface %s not found", name)
+	}
+
+	oids, err := interfaceOIDs(ctx, dbs.counters)
 	if err != nil {
 		return Interface{}, err
 	}
 
-	for _, intf := range interfaces {
-		if intf.Name == name {
-			return intf, nil
-		}
-	}
-
-	return Interface{}, fmt.Errorf("interface %s not found", name)
+	return dbs.portState(ctx, lldp, name, oids)
 }
 
 func portOptic(ctx context.Context, state *redis.Conn, name string, lanes int) (Optic, error) {
