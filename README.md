@@ -1,11 +1,17 @@
-# SONiC CLI tools
+# SONiC tools
 
-Two small CLI tools to operate Community [SONiC](https://sonic-net.github.io/SONiC/) switches.
+## SONiC library
+
+This repository exposes a SONiC Go library (mainly for read purposes).
+
+Documentation can be found here: [https://pkg.go.dev/github.com/premday/sonic-tools](https://pkg.go.dev/github.com/premday/sonic-tools)
+
+## Tools
+
+Two CLI tools to operate Community [SONiC](https://sonic-net.github.io/SONiC/) switches.
 Both tools connect to the local Redis instance on `127.0.0.1:6379` and must be run directly on the switch.
 
 Everything they read from the switch lives in the `sonic` package, which can be used as a library.
-
-## Tools
 
 ### premshow
 
