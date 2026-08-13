@@ -161,28 +161,32 @@ func MACTable(ctx context.Context, rdb *redis.Client) ([]FDBEntry, error) {
 		return nil, err
 	}
 
-	entries := make([]FDBEntry, 0, len(keys))
+	// the entries are parsed first, so that the reads they need are batched rather than
+	// interleaved: a busy ToR holds thousands of them
+	fdbKeys := make([]fdbKey, 0, len(keys))
+	entryKeys := make([]string, 0, len(keys))
 	for _, key := range keys {
-		// the key format is: ASIC_STATE:SAI_OBJECT_TYPE_FDB_ENTRY:{json}
-		parts := strings.SplitN(key, ":", 3)
-		if len(parts) < 3 {
-			continue
-		}
-
-		fdbKey := struct {
-			BvID string `json:"bvid"`
-			MAC  string `json:"mac"`
-			Vlan string `json:"vlan"`
-		}{}
-		if err := json.Unmarshal([]byte(parts[2]), &fdbKey); err != nil {
-			continue
-		}
-
-		bridgePort, err := asic.HGet(ctx, key, "SAI_FDB_ENTRY_ATTR_BRIDGE_PORT_ID").Result()
+		parsed, err := parseFDBKey(key)
 		if err != nil {
 			continue
 		}
-		port, exists := bridgePorts[strings.TrimPrefix(bridgePort, oidPrefix)]
+		fdbKeys = append(fdbKeys, parsed)
+		entryKeys = append(entryKeys, key)
+	}
+
+	bridgePortOIDs, err := hGetEach(ctx, asic, "SAI_FDB_ENTRY_ATTR_BRIDGE_PORT_ID", entryKeys)
+	if err != nil {
+		return nil, err
+	}
+
+	vlanIDs, err := fdbVlanIDs(ctx, asic, fdbKeys)
+	if err != nil {
+		return nil, err
+	}
+
+	entries := make([]FDBEntry, 0, len(fdbKeys))
+	for i, fdbKey := range fdbKeys {
+		port, exists := bridgePorts[strings.TrimPrefix(bridgePortOIDs[i], oidPrefix)]
 		if !exists {
 			continue
 		}
@@ -192,8 +196,8 @@ func MACTable(ctx context.Context, rdb *redis.Client) ([]FDBEntry, error) {
 			name = port
 		}
 
-		vlanID, err := fdbVlanID(ctx, asic, fdbKey.Vlan, fdbKey.BvID)
-		if err != nil {
+		vlanID, resolved := vlanIDs[fdbKey.vlanKey()]
+		if !resolved {
 			continue
 		}
 
@@ -201,6 +205,37 @@ func MACTable(ctx context.Context, rdb *redis.Client) ([]FDBEntry, error) {
 	}
 
 	return entries, nil
+}
+
+// fdbKey is the key of an FDB entry, the ASIC stores it as JSON.
+type fdbKey struct {
+	BvID string `json:"bvid"`
+	MAC  string `json:"mac"`
+	Vlan string `json:"vlan"`
+}
+
+// vlanKey is what the VLAN of the entry is looked up by: the VLAN itself when the key carries
+// it, the bridge VLAN OID to resolve otherwise.
+func (k fdbKey) vlanKey() string {
+	if k.Vlan != "" {
+		return k.Vlan
+	}
+	return k.BvID
+}
+
+// parseFDBKey reads the JSON part of 'ASIC_STATE:SAI_OBJECT_TYPE_FDB_ENTRY:{json}'.
+func parseFDBKey(key string) (fdbKey, error) {
+	parts := strings.SplitN(key, ":", 3)
+	if len(parts) < 3 {
+		return fdbKey{}, fmt.Errorf("malformed FDB key '%s'", key)
+	}
+
+	parsed := fdbKey{}
+	if err := json.Unmarshal([]byte(parts[2]), &parsed); err != nil {
+		return fdbKey{}, fmt.Errorf("failed to parse FDB key '%s': %w", key, err)
+	}
+
+	return parsed, nil
 }
 
 const oidPrefix = "oid:0x"
@@ -212,31 +247,63 @@ func bridgePortMap(ctx context.Context, asic *redis.Conn) (map[string]string, er
 		return nil, err
 	}
 
+	ports, err := hGetEach(ctx, asic, "SAI_BRIDGE_PORT_ATTR_PORT_ID", keys)
+	if err != nil {
+		return nil, err
+	}
+
 	bridgePorts := make(map[string]string, len(keys))
-	for _, key := range keys {
-		port, err := asic.HGet(ctx, key, "SAI_BRIDGE_PORT_ATTR_PORT_ID").Result()
-		if err != nil {
+	for i, key := range keys {
+		if ports[i] == "" {
 			continue
 		}
 
 		bridgePortID := strings.TrimPrefix(key, "ASIC_STATE:SAI_OBJECT_TYPE_BRIDGE_PORT:"+oidPrefix)
-		bridgePorts[bridgePortID] = strings.TrimPrefix(port, oidPrefix)
+		bridgePorts[bridgePortID] = strings.TrimPrefix(ports[i], oidPrefix)
 	}
 
 	return bridgePorts, nil
 }
 
-// fdbVlanID returns the VLAN ID of an FDB entry, resolving the bridge VLAN OID when the VLAN is not in the key.
-func fdbVlanID(ctx context.Context, asic *redis.Conn, vlan, bvid string) (int, error) {
-	if vlan != "" {
-		return strconv.Atoi(vlan)
+// fdbVlanIDs returns the VLAN ID of each entry, by the key vlanKey returns. The entries whose key
+// carries no VLAN need their bridge VLAN OID resolved, and thousands of entries share a handful of
+// those, so each distinct OID is read once.
+func fdbVlanIDs(ctx context.Context, asic *redis.Conn, fdbKeys []fdbKey) (map[string]int, error) {
+	vlanIDs := make(map[string]int, len(fdbKeys))
+
+	bvids := []string{}
+	oidKeys := []string{}
+	for _, key := range fdbKeys {
+		if key.Vlan != "" {
+			if vlanID, err := strconv.Atoi(key.Vlan); err == nil {
+				vlanIDs[key.Vlan] = vlanID
+			}
+			continue
+		}
+		if key.BvID == "" {
+			continue
+		}
+
+		if _, queued := vlanIDs[key.BvID]; !queued {
+			vlanIDs[key.BvID] = 0 // reserved, so the OID is queued once
+			bvids = append(bvids, key.BvID)
+			oidKeys = append(oidKeys, "ASIC_STATE:SAI_OBJECT_TYPE_VLAN:"+key.BvID)
+		}
 	}
 
-	key := "ASIC_STATE:SAI_OBJECT_TYPE_VLAN:" + bvid
-	vlanID, err := asic.HGet(ctx, key, "SAI_VLAN_ATTR_VLAN_ID").Result()
+	values, err := hGetEach(ctx, asic, "SAI_VLAN_ATTR_VLAN_ID", oidKeys)
 	if err != nil {
-		return 0, fmt.Errorf("failed to get VLAN ID for bvid %s: %w", bvid, err)
+		return nil, err
 	}
 
-	return strconv.Atoi(vlanID)
+	for i, bvid := range bvids {
+		vlanID, err := strconv.Atoi(values[i])
+		if err != nil {
+			delete(vlanIDs, bvid) // unresolved, the entries using it are skipped
+			continue
+		}
+		vlanIDs[bvid] = vlanID
+	}
+
+	return vlanIDs, nil
 }

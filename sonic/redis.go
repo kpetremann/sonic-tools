@@ -2,6 +2,7 @@ package sonic
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -33,6 +34,36 @@ func scanKeys(ctx context.Context, conn *redis.Conn, pattern string) ([]string, 
 		return nil, fmt.Errorf("failed to scan '%s': %w", pattern, err)
 	}
 	return keys, nil
+}
+
+// hGetEach reads one field of many keys in a single round-trip, in the order of the keys. A key
+// which does not hold the field yields an empty string: the ASIC tables are read while the switch
+// keeps writing them, so a key can disappear between the scan and the read.
+func hGetEach(ctx context.Context, conn *redis.Conn, field string, keys []string) ([]string, error) {
+	if len(keys) == 0 {
+		return nil, nil
+	}
+
+	cmds := make([]*redis.StringCmd, len(keys))
+	_, err := conn.Pipelined(ctx, func(pipe redis.Pipeliner) error {
+		for i, key := range keys {
+			cmds[i] = pipe.HGet(ctx, key, field)
+		}
+		return nil
+	})
+	// Pipelined reports the first failing command, a missing key or field being one of them
+	if err != nil && !errors.Is(err, redis.Nil) {
+		return nil, fmt.Errorf("failed to read %s of %d keys: %w", field, len(keys), err)
+	}
+
+	values := make([]string, len(keys))
+	for i, cmd := range cmds {
+		if value, err := cmd.Result(); err == nil {
+			values[i] = value
+		}
+	}
+
+	return values, nil
 }
 
 // pick returns the first non empty field, several SONiC releases use different field names.
