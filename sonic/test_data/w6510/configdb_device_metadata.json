@@ -1,0 +1,21 @@
+{
+  "DEVICE_METADATA|localhost": {
+    "expireat": 1786546036.740482,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "bgp_asn": "4200000001",
+      "buffer_model": "traditional",
+      "default_bgp_status": "up",
+      "default_pfcwd_status": "disable",
+      "deployment_id": "None",
+      "docker_routing_config_mode": "split-unified",
+      "hostname": "rb01-15-p02-dc1-pnet.example.net",
+      "hwsku": "M2-W6510-32C",
+      "mac": "00:00:5e:00:53:08",
+      "platform": "x86_64-micas_m2-w6510-32c-r0",
+      "timezone": "UTC",
+      "type": "ToRRouter"
+    }
+  }
+}

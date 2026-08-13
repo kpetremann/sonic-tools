@@ -1,0 +1,15 @@
+{
+  "COUNTERS_PORT_NAME_MAP": {
+    "expireat": 1786546041.764165,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "Ethernet0": "oid:0x1000000000002",
+      "Ethernet10": "oid:0x10000000005b9",
+      "Ethernet17": "oid:0x10000000005bc",
+      "Ethernet64": "oid:0x1000000000012",
+      "Ethernet8": "oid:0x10000000005b7",
+      "Ethernet96": "oid:0x100000000001a"
+    }
+  }
+}

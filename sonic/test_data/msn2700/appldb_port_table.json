@@ -1,0 +1,111 @@
+{
+  "PORT_TABLE:Ethernet0": {
+    "expireat": 1786545924.2809167,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp1",
+      "description": "LOCAL:sp01-15-p02-dc1-pnet.example.net:Ethernet16",
+      "fec": "rs",
+      "index": "1",
+      "lanes": "0,1,2,3",
+      "mtu": "9100",
+      "oper_status": "up",
+      "speed": "100000"
+    }
+  },
+  "PORT_TABLE:Ethernet100": {
+    "expireat": 1786545924.282295,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp26",
+      "description": "LOCAL:ra01-15-p02-dc1-mnet.example.net:et-0/1/0",
+      "index": "26",
+      "lanes": "100,101,102,103",
+      "mtu": "1500",
+      "oper_status": "up",
+      "speed": "40000"
+    }
+  },
+  "PORT_TABLE:Ethernet32": {
+    "expireat": 1786545924.2783744,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp9",
+      "description": "LOCAL:sp02-15-p02-dc1-pnet.example.net:Ethernet16",
+      "fec": "rs",
+      "index": "9",
+      "lanes": "32,33,34,35",
+      "mtu": "9100",
+      "oper_status": "up",
+      "speed": "100000"
+    }
+  },
+  "PORT_TABLE:Ethernet64": {
+    "expireat": 1786545924.2808194,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp17",
+      "description": "UNUSED:to_L3-SP03",
+      "fec": "rs",
+      "index": "17",
+      "lanes": "64,65,66,67",
+      "mtu": "9100",
+      "oper_status": "down",
+      "speed": "100000"
+    }
+  },
+  "PORT_TABLE:Ethernet8": {
+    "expireat": 1786545924.278476,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3a",
+      "description": "SERVER:server1:eth0",
+      "index": "3",
+      "lanes": "8",
+      "mtu": "9000",
+      "oper_status": "up",
+      "speed": "25000"
+    }
+  },
+  "PORT_TABLE:Ethernet9": {
+    "expireat": 1786545924.279982,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3b",
+      "description": "SERVER:server2:eth0",
+      "index": "3",
+      "lanes": "9",
+      "mtu": "9000",
+      "oper_status": "up",
+      "speed": "25000"
+    }
+  },
+  "PORT_TABLE:PortConfigDone": {
+    "expireat": 1786545924.2819126,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "count": "56"
+    }
+  },
+  "PORT_TABLE:PortInitDone": {
+    "expireat": 1786545924.282336,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "lanes": "0"
+    }
+  }
+}

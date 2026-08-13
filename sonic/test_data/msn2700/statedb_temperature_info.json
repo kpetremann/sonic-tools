@@ -1,0 +1,138 @@
+{
+  "TEMPERATURE_INFO|ASIC": {
+    "expireat": 1786545927.4707313,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "120.0",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "105.0",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "63.0",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  },
+  "TEMPERATURE_INFO|Ambient Fan Side Temp": {
+    "expireat": 1786545927.4706302,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "N/A",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "N/A",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "32.5",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  },
+  "TEMPERATURE_INFO|Ambient Port Side Temp": {
+    "expireat": 1786545927.4705217,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "N/A",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "N/A",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "38.5",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  },
+  "TEMPERATURE_INFO|CPU Core 0 Temp": {
+    "expireat": 1786545927.4720402,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "105.0",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "87.0",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "37.0",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  },
+  "TEMPERATURE_INFO|CPU Core 1 Temp": {
+    "expireat": 1786545927.4698994,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "105.0",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "87.0",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "33.0",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  },
+  "TEMPERATURE_INFO|CPU Pack Temp": {
+    "expireat": 1786545927.4709325,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "105.0",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "87.0",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "37.0",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  },
+  "TEMPERATURE_INFO|xSFP module 8 Temp": {
+    "expireat": 1786545927.47042,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "N/A",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "N/A",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "N/A",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  },
+  "TEMPERATURE_INFO|xSFP module 9 Temp": {
+    "expireat": 1786545927.4719398,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "critical_high_threshold": "80.0",
+      "critical_low_threshold": "N/A",
+      "high_threshold": "75.0",
+      "is_replaceable": "False",
+      "low_threshold": "N/A",
+      "maximum_temperature": "N/A",
+      "minimum_temperature": "N/A",
+      "temperature": "45.0",
+      "timestamp": "20260812 14:44:38",
+      "warning_status": "False"
+    }
+  }
+}

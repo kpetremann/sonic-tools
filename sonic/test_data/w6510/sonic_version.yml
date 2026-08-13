@@ -1,0 +1,16 @@
+---
+build_version: '202505-R001.1-def456abc'
+debian_version: '12.13'
+kernel_version: '6.1.0-29-2-amd64'
+asic_type: broadcom
+asic_subtype: 'broadcom'
+commit_id: 'def456abc'
+branch: '202505-R001'
+release: '202505'
+build_date: Wed Mar 25 17:21:42 UTC 2026
+build_number: 0
+built_by: t.kieffer@sonic-lab07-fr4
+libswsscommon: 1.0.0
+sonic_utilities: 1.2
+sonic_os_version: 12
+secure_boot_image: 'no'

@@ -1,0 +1,148 @@
+{
+  "PORT_TABLE:Ethernet0": {
+    "expireat": 1786546038.0086029,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp1",
+      "description": "UNUSED:to_L3-SP01",
+      "dhcp_rate_limit": "300",
+      "fec": "rs",
+      "flap_count": "0",
+      "index": "0",
+      "lanes": "5,6,7,8",
+      "mtu": "9100",
+      "oper_status": "down",
+      "speed": "100000"
+    }
+  },
+  "PORT_TABLE:Ethernet10": {
+    "expireat": 1786546038.0082815,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3c",
+      "description": "SERVER:server3:eth0",
+      "dhcp_rate_limit": "300",
+      "flap_count": "3",
+      "index": "2",
+      "lanes": "15",
+      "last_down_time": "Wed Aug 12 13:23:26 2026",
+      "last_up_time": "Wed Aug 12 13:23:29 2026",
+      "main": "0x0000004B",
+      "mtu": "9000",
+      "oper_status": "up",
+      "post1": "0x0000000F",
+      "pre1": "0x0000000A",
+      "speed": "25000"
+    }
+  },
+  "PORT_TABLE:Ethernet17": {
+    "expireat": 1786546038.0081172,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp5b",
+      "description": "SERVER:server6:eth0",
+      "dhcp_rate_limit": "300",
+      "flap_count": "3",
+      "index": "4",
+      "lanes": "22",
+      "last_down_time": "Wed Aug 12 13:23:25 2026",
+      "last_up_time": "Wed Aug 12 13:23:28 2026",
+      "main": "0x0000004B",
+      "mtu": "9000",
+      "oper_status": "up",
+      "post1": "0x0000000F",
+      "pre1": "0x0000000A",
+      "speed": "25000"
+    }
+  },
+  "PORT_TABLE:Ethernet64": {
+    "expireat": 1786546038.0086713,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp17",
+      "description": "LOCAL:sp03-15-p02-dc1-pnet.example.net:Ethernet16",
+      "dhcp_rate_limit": "300",
+      "fec": "rs",
+      "flap_count": "3",
+      "index": "16",
+      "lanes": "69,70,71,72",
+      "last_down_time": "Wed Aug 12 13:23:25 2026",
+      "last_up_time": "Wed Aug 12 13:23:27 2026",
+      "main": "0x0000004B,0x0000004B,0x0000004B,0x0000004B",
+      "mtu": "9100",
+      "oper_status": "up",
+      "post1": "0x0000000F,0x0000000F,0x0000000F,0x0000000F",
+      "pre1": "0x0000000A,0x0000000A,0x0000000A,0x0000000A",
+      "speed": "100000"
+    }
+  },
+  "PORT_TABLE:Ethernet8": {
+    "expireat": 1786546038.0082438,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp3a",
+      "description": "SERVER:server1:eth0",
+      "dhcp_rate_limit": "300",
+      "flap_count": "3",
+      "index": "2",
+      "lanes": "13",
+      "last_down_time": "Wed Aug 12 13:23:25 2026",
+      "last_up_time": "Wed Aug 12 13:23:28 2026",
+      "main": "0x0000004B",
+      "mtu": "9000",
+      "oper_status": "up",
+      "post1": "0x0000000F",
+      "pre1": "0x0000000A",
+      "speed": "25000"
+    }
+  },
+  "PORT_TABLE:Ethernet96": {
+    "expireat": 1786546038.00965,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "admin_status": "up",
+      "alias": "etp25",
+      "description": "LOCAL:sp04-15-p02-dc1-pnet.example.net:Ethernet16",
+      "dhcp_rate_limit": "300",
+      "fec": "rs",
+      "flap_count": "3",
+      "index": "24",
+      "lanes": "101,102,103,104",
+      "last_down_time": "Wed Aug 12 13:23:26 2026",
+      "last_up_time": "Wed Aug 12 13:23:28 2026",
+      "main": "0x0000004B,0x0000004B,0x0000004B,0x0000004B",
+      "mtu": "9100",
+      "oper_status": "up",
+      "post1": "0x0000000F,0x0000000F,0x0000000F,0x0000000F",
+      "pre1": "0x0000000A,0x0000000A,0x0000000A,0x0000000A",
+      "speed": "100000"
+    }
+  },
+  "PORT_TABLE:PortConfigDone": {
+    "expireat": 1786546038.008512,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "count": "56"
+    }
+  },
+  "PORT_TABLE:PortInitDone": {
+    "expireat": 1786546038.0089242,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "lanes": "0"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "INTF_TABLE:Ethernet10:198.51.100.13/30": {
+    "expireat": 1786546038.4332168,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv4",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Ethernet17:198.51.100.25/30": {
+    "expireat": 1786546038.4336839,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv4",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Ethernet64:203.0.113.96/31": {
+    "expireat": 1786546038.4325006,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv4",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Ethernet64:2001:db8:0:fe:f15:0:201:300/127": {
+    "expireat": 1786546038.4331596,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv6",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Ethernet8:198.51.100.5/30": {
+    "expireat": 1786546038.4327571,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv4",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Ethernet96:203.0.113.144/31": {
+    "expireat": 1786546038.4330125,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv4",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Ethernet96:2001:db8:0:fe:f15:0:201:400/127": {
+    "expireat": 1786546038.432898,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv6",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Loopback0:203.0.113.205/32": {
+    "expireat": 1786546038.4333153,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv4",
+      "scope": "global"
+    }
+  },
+  "INTF_TABLE:Loopback0:2001:db8:0:1:515:0:200:100/128": {
+    "expireat": 1786546038.4327993,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "family": "IPv6",
+      "scope": "global"
+    }
+  }
+}

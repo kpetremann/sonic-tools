@@ -1,0 +1,718 @@
+{
+  "192.0.2.10": {
+    "addressFamilyInfo": {
+      "ipv4Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_10-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      },
+      "ipv6Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_10-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      }
+    },
+    "bgpInUpdateElapsedTimeMsecs": 76627000,
+    "bgpState": "Active",
+    "bgpTimerDelayOpenTimeMsecs": 60000,
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 80549000,
+    "bgpTimerLastWrite": 76627000,
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 0,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {},
+      "endOfRibSend": {},
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "NotApplicable",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 0
+      }
+    },
+    "lastResetCode": 32,
+    "lastResetDueTo": "Waiting for peer OPEN",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 0,
+      "keepalivesSent": 0,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 0,
+      "opensSent": 0,
+      "routeRefreshRecv": 0,
+      "routeRefreshSent": 0,
+      "totalRecv": 0,
+      "totalSent": 0,
+      "updatesRecv": 0,
+      "updatesSent": 0
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "SERVER:server3",
+    "nbrExternalLink": true,
+    "nextConnectTimerDueInMsecs": 63000,
+    "readThread": "off",
+    "remoteAs": 4200000002,
+    "remoteRouterId": "0.0.0.0",
+    "writeThread": "off"
+  },
+  "192.0.2.14": {
+    "addressFamilyInfo": {
+      "ipv4Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_14-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      },
+      "ipv6Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_14-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      }
+    },
+    "bgpInUpdateElapsedTimeMsecs": 76627000,
+    "bgpState": "Active",
+    "bgpTimerDelayOpenTimeMsecs": 60000,
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 80549000,
+    "bgpTimerLastWrite": 76627000,
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 0,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {},
+      "endOfRibSend": {},
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "NotApplicable",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 0
+      }
+    },
+    "lastResetCode": 32,
+    "lastResetDueTo": "Waiting for peer OPEN",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 0,
+      "keepalivesSent": 0,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 0,
+      "opensSent": 0,
+      "routeRefreshRecv": 0,
+      "routeRefreshSent": 0,
+      "totalRecv": 0,
+      "totalSent": 0,
+      "updatesRecv": 0,
+      "updatesSent": 0
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "SERVER:server4",
+    "nbrExternalLink": true,
+    "nextConnectTimerDueInMsecs": 1000,
+    "readThread": "off",
+    "remoteAs": 4200000002,
+    "remoteRouterId": "0.0.0.0",
+    "writeThread": "off"
+  },
+  "192.0.2.2": {
+    "addressFamilyInfo": {
+      "ipv4Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_2-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      },
+      "ipv6Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_2-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      }
+    },
+    "bgpInUpdateElapsedTimeMsecs": 76627000,
+    "bgpState": "Active",
+    "bgpTimerDelayOpenTimeMsecs": 60000,
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 80549000,
+    "bgpTimerLastWrite": 76627000,
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 0,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {},
+      "endOfRibSend": {},
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "NotApplicable",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 0
+      }
+    },
+    "lastResetCode": 27,
+    "lastResetDueTo": "Waiting for NHT",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 0,
+      "keepalivesSent": 0,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 0,
+      "opensSent": 0,
+      "routeRefreshRecv": 0,
+      "routeRefreshSent": 0,
+      "totalRecv": 0,
+      "totalSent": 0,
+      "updatesRecv": 0,
+      "updatesSent": 0
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "SERVER:server1",
+    "nbrExternalLink": true,
+    "nextConnectTimerDueInMsecs": 92000,
+    "readThread": "off",
+    "remoteAs": 4200000002,
+    "remoteRouterId": "0.0.0.0",
+    "writeThread": "off"
+  },
+  "192.0.2.6": {
+    "addressFamilyInfo": {
+      "ipv4Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_6-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      },
+      "ipv6Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-SERVER_192_0_2_6-IN",
+        "routeMapForOutgoingAdvertisements": "RM-SERVER-OUT"
+      }
+    },
+    "bgpInUpdateElapsedTimeMsecs": 76627000,
+    "bgpState": "Active",
+    "bgpTimerDelayOpenTimeMsecs": 60000,
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 80549000,
+    "bgpTimerLastWrite": 76627000,
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 0,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {},
+      "endOfRibSend": {},
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "NotApplicable",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 0
+      }
+    },
+    "lastResetCode": 32,
+    "lastResetDueTo": "Waiting for peer OPEN",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 0,
+      "keepalivesSent": 0,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 0,
+      "opensSent": 0,
+      "routeRefreshRecv": 0,
+      "routeRefreshSent": 0,
+      "totalRecv": 0,
+      "totalSent": 0,
+      "updatesRecv": 0,
+      "updatesSent": 0
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "SERVER:server2",
+    "nbrExternalLink": true,
+    "nextConnectTimerDueInMsecs": 120000,
+    "readThread": "off",
+    "remoteAs": 4200000002,
+    "remoteRouterId": "0.0.0.0",
+    "writeThread": "off"
+  },
+  "203.0.113.1": {
+    "addressFamilyInfo": {
+      "ipv4Unicast": {
+        "acceptedPrefixCounter": 4732,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "packetQueueLength": 0,
+        "prefixAllowedMax": 10000,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-CLOS-IN",
+        "routeMapForOutgoingAdvertisements": "RM-CLOS-OUT",
+        "sentPrefixCounter": 4735,
+        "subGroupId": 1,
+        "updateGroupId": 1
+      }
+    },
+    "bgpConnection": "sharedNetwork",
+    "bgpInUpdateElapsedTimeMsecs": 0,
+    "bgpState": "Established",
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 0,
+    "bgpTimerLastWrite": 0,
+    "bgpTimerUpEstablishedEpoch": 1786465372,
+    "bgpTimerUpMsec": 80548000,
+    "bgpTimerUpString": "22:22:28",
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 1,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {
+        "ipv4Unicast": true
+      },
+      "endOfRibSend": {
+        "ipv4Unicast": true
+      },
+      "ipv4Unicast": {
+        "endOfRibStatus": {
+          "endOfRibRecv": true,
+          "endOfRibSend": true,
+          "endOfRibSentAfterUpdate": false
+        },
+        "fBit": true,
+        "timers": {
+          "selectionDeferralTimer": 360,
+          "stalePathTimer": 360
+        }
+      },
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "Restart",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 240
+      }
+    },
+    "hostForeign": "203.0.113.1",
+    "hostLocal": "203.0.113.0",
+    "hostname": "sp01-15-p02-dc1-pnet.example.net",
+    "lastResetCode": 32,
+    "lastResetDueTo": "Waiting for peer OPEN",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 1343,
+      "keepalivesSent": 1343,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 1,
+      "opensSent": 1,
+      "routeRefreshRecv": 41,
+      "routeRefreshSent": 38,
+      "totalRecv": 92259,
+      "totalSent": 93024,
+      "updatesRecv": 90874,
+      "updatesSent": 91642
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "PG-L3_SP:sp01-15-p02-dc1-pnet.example.net",
+    "nbrExternalLink": true,
+    "neighborCapabilities": {
+      "4byteAs": "advertisedAndReceived",
+      "addPath": {
+        "ipv4Unicast": {
+          "rxAdvertisedAndReceived": true
+        }
+      },
+      "addressFamiliesByPeer": {
+        "ipv4Unicast": {
+          "preserved": true
+        }
+      },
+      "enhancedRouteRefresh": "advertisedAndReceived",
+      "extendedMessage": "advertisedAndReceived",
+      "gracefulRestart": "advertisedAndReceived",
+      "gracefulRestartRemoteTimerMsecs": 240000,
+      "hostName": {
+        "advDomainName": "n/a",
+        "advHostName": "ra01-15-p02-dc1-pnet.example.net",
+        "rcvDomainName": "n/a",
+        "rcvHostName": "sp01-15-p02-dc1-pnet.example.net"
+      },
+      "longLivedGracefulRestart": "advertisedAndReceived",
+      "longLivedGracefulRestartByPeer": {},
+      "multiprotocolExtensions": {
+        "ipv4Unicast": {
+          "advertisedAndReceived": true
+        }
+      },
+      "routeRefresh": "advertisedAndReceivedOldNew"
+    },
+    "nexthop": "203.0.113.0",
+    "nexthopGlobal": "2001:db8:0:fe:f15:0:201:100",
+    "nexthopLocal": "fe80::1e34:daff:fe86:c00",
+    "portForeign": 179,
+    "portLocal": 48102,
+    "readThread": "on",
+    "remoteAs": 4200000003,
+    "remoteRouterId": "203.0.113.200",
+    "writeThread": "on"
+  },
+  "203.0.113.49": {
+    "addressFamilyInfo": {
+      "ipv4Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10000,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-CLOS-IN",
+        "routeMapForOutgoingAdvertisements": "RM-CLOS-OUT"
+      }
+    },
+    "bgpInUpdateElapsedTimeMsecs": 76627000,
+    "bgpState": "Active",
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 80549000,
+    "bgpTimerLastWrite": 76627000,
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 0,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {},
+      "endOfRibSend": {},
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "NotApplicable",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 0
+      }
+    },
+    "lastResetCode": 32,
+    "lastResetDueTo": "Waiting for peer OPEN",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 0,
+      "keepalivesSent": 0,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 0,
+      "opensSent": 0,
+      "routeRefreshRecv": 0,
+      "routeRefreshSent": 0,
+      "totalRecv": 0,
+      "totalSent": 0,
+      "updatesRecv": 0,
+      "updatesSent": 0
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "PG-L3_SP:sp02-15-p02-dc1-pnet.example.net",
+    "nbrExternalLink": true,
+    "nextConnectTimerDueInMsecs": 34000,
+    "readThread": "off",
+    "remoteAs": 4200000003,
+    "remoteRouterId": "0.0.0.0",
+    "writeThread": "off"
+  },
+  "2001:db8:0:fe:f15:0:201:101": {
+    "addressFamilyInfo": {
+      "ipv6Unicast": {
+        "acceptedPrefixCounter": 1427,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "packetQueueLength": 0,
+        "prefixAllowedMax": 10000,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-CLOS-IN",
+        "routeMapForOutgoingAdvertisements": "RM-CLOS-OUT",
+        "sentPrefixCounter": 1427,
+        "subGroupId": 2,
+        "updateGroupId": 2
+      }
+    },
+    "bgpConnection": "sharedNetwork",
+    "bgpInUpdateElapsedTimeMsecs": 0,
+    "bgpState": "Established",
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 0,
+    "bgpTimerLastWrite": 0,
+    "bgpTimerUpEstablishedEpoch": 1786465372,
+    "bgpTimerUpMsec": 80548000,
+    "bgpTimerUpString": "22:22:28",
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 1,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {
+        "ipv6Unicast": true
+      },
+      "endOfRibSend": {
+        "ipv6Unicast": true
+      },
+      "ipv6Unicast": {
+        "endOfRibStatus": {
+          "endOfRibRecv": true,
+          "endOfRibSend": true,
+          "endOfRibSentAfterUpdate": false
+        },
+        "fBit": true,
+        "timers": {
+          "selectionDeferralTimer": 360,
+          "stalePathTimer": 360
+        }
+      },
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "Restart",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 240
+      }
+    },
+    "hostForeign": "2001:db8:0:fe:f15:0:201:101",
+    "hostLocal": "2001:db8:0:fe:f15:0:201:100",
+    "hostname": "sp01-15-p02-dc1-pnet.example.net",
+    "lastResetCode": 32,
+    "lastResetDueTo": "Waiting for peer OPEN",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 1343,
+      "keepalivesSent": 1343,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 1,
+      "opensSent": 1,
+      "routeRefreshRecv": 41,
+      "routeRefreshSent": 38,
+      "totalRecv": 92230,
+      "totalSent": 92492,
+      "updatesRecv": 90845,
+      "updatesSent": 91110
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "PG-L3_SP:sp01-15-p02-dc1-pnet.example.net",
+    "nbrExternalLink": true,
+    "neighborCapabilities": {
+      "4byteAs": "advertisedAndReceived",
+      "addPath": {
+        "ipv6Unicast": {
+          "rxAdvertisedAndReceived": true
+        }
+      },
+      "addressFamiliesByPeer": {
+        "ipv6Unicast": {
+          "preserved": true
+        }
+      },
+      "enhancedRouteRefresh": "advertisedAndReceived",
+      "extendedMessage": "advertisedAndReceived",
+      "gracefulRestart": "advertisedAndReceived",
+      "gracefulRestartRemoteTimerMsecs": 240000,
+      "hostName": {
+        "advDomainName": "n/a",
+        "advHostName": "ra01-15-p02-dc1-pnet.example.net",
+        "rcvDomainName": "n/a",
+        "rcvHostName": "sp01-15-p02-dc1-pnet.example.net"
+      },
+      "longLivedGracefulRestart": "advertisedAndReceived",
+      "longLivedGracefulRestartByPeer": {},
+      "multiprotocolExtensions": {
+        "ipv6Unicast": {
+          "advertisedAndReceived": true
+        }
+      },
+      "routeRefresh": "advertisedAndReceivedOldNew"
+    },
+    "nexthop": "203.0.113.0",
+    "nexthopGlobal": "2001:db8:0:fe:f15:0:201:100",
+    "nexthopLocal": "fe80::1e34:daff:fe86:c00",
+    "portForeign": 179,
+    "portLocal": 59102,
+    "readThread": "on",
+    "remoteAs": 4200000003,
+    "remoteRouterId": "203.0.113.200",
+    "writeThread": "on"
+  },
+  "2001:db8:0:fe:f15:0:201:201": {
+    "addressFamilyInfo": {
+      "ipv6Unicast": {
+        "acceptedPrefixCounter": 0,
+        "commAttriSentToNbr": "extendedAndStandard",
+        "inboundPathPolicyConfig": true,
+        "inboundSoftConfigPermit": true,
+        "outboundPathPolicyConfig": true,
+        "prefixAllowedMax": 10000,
+        "prefixAllowedWarningThresh": 75,
+        "routeMapForIncomingAdvertisements": "RM-CLOS-IN",
+        "routeMapForOutgoingAdvertisements": "RM-CLOS-OUT"
+      }
+    },
+    "bgpInUpdateElapsedTimeMsecs": 76627000,
+    "bgpState": "Active",
+    "bgpTimerHoldTimeMsecs": 180000,
+    "bgpTimerKeepAliveIntervalMsecs": 60000,
+    "bgpTimerLastRead": 80549000,
+    "bgpTimerLastWrite": 76627000,
+    "bgpVersion": 4,
+    "connectRetryTimer": 120,
+    "connectionsDropped": 0,
+    "connectionsEstablished": 0,
+    "extendedOptionalParametersLength": false,
+    "gracefulRestartInfo": {
+      "endOfRibRecv": {},
+      "endOfRibSend": {},
+      "localGrMode": "Restart*",
+      "rBit": false,
+      "remoteGrMode": "NotApplicable",
+      "timers": {
+        "configuredRestartTimer": 240,
+        "receivedRestartTimer": 0
+      }
+    },
+    "lastResetCode": 32,
+    "lastResetDueTo": "Waiting for peer OPEN",
+    "lastResetTimerMsecs": 80549000,
+    "localAs": 4200000001,
+    "localRouterId": "203.0.113.204",
+    "messageStats": {
+      "capabilityRecv": 0,
+      "capabilitySent": 0,
+      "depthInq": 0,
+      "depthOutq": 0,
+      "keepalivesRecv": 0,
+      "keepalivesSent": 0,
+      "notificationsRecv": 0,
+      "notificationsSent": 0,
+      "opensRecv": 0,
+      "opensSent": 0,
+      "routeRefreshRecv": 0,
+      "routeRefreshSent": 0,
+      "totalRecv": 0,
+      "totalSent": 0,
+      "updatesRecv": 0,
+      "updatesSent": 0
+    },
+    "minBtwnAdvertisementRunsTimerMsecs": 0,
+    "nbrDesc": "PG-L3_SP:sp02-15-p02-dc1-pnet.example.net",
+    "nbrExternalLink": true,
+    "nextConnectTimerDueInMsecs": 34000,
+    "readThread": "off",
+    "remoteAs": 4200000003,
+    "remoteRouterId": "0.0.0.0",
+    "writeThread": "off"
+  }
+}

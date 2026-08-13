@@ -1,0 +1,68 @@
+{
+  "TRANSCEIVER_DOM_SENSOR|Ethernet64": {
+    "expireat": 1786546040.0919344,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "last_update_time": "Wed Aug 12 14:46:13 2026",
+      "rx1power": "0.09",
+      "rx2power": "0.306",
+      "rx3power": "0.795",
+      "rx4power": "0.026",
+      "temperature": "51.328",
+      "tx1bias": "33.432",
+      "tx1power": "1.559",
+      "tx2bias": "36.832",
+      "tx2power": "1.833",
+      "tx3bias": "40.36",
+      "tx3power": "1.827",
+      "tx4bias": "43.896",
+      "tx4power": "1.116",
+      "voltage": "3.311"
+    }
+  },
+  "TRANSCEIVER_DOM_SENSOR|Ethernet8": {
+    "expireat": 1786546040.0921361,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "last_update_time": "Wed Aug 12 14:46:06 2026",
+      "rx1power": "N/A",
+      "rx2power": "N/A",
+      "rx3power": "N/A",
+      "rx4power": "N/A",
+      "temperature": "N/A",
+      "tx1bias": "0.0",
+      "tx1power": "N/A",
+      "tx2bias": "0.0",
+      "tx2power": "N/A",
+      "tx3bias": "0.0",
+      "tx3power": "N/A",
+      "tx4bias": "0.0",
+      "tx4power": "N/A",
+      "voltage": "N/A"
+    }
+  },
+  "TRANSCEIVER_DOM_SENSOR|Ethernet96": {
+    "expireat": 1786546040.0921686,
+    "ttl": -0.001,
+    "type": "hash",
+    "value": {
+      "last_update_time": "Wed Aug 12 14:46:22 2026",
+      "rx1power": "-0.742",
+      "rx2power": "-1.186",
+      "rx3power": "-1.986",
+      "rx4power": "-0.846",
+      "temperature": "42.848",
+      "tx1bias": "46.632",
+      "tx1power": "-0.386",
+      "tx2bias": "42.568",
+      "tx2power": "0.542",
+      "tx3bias": "37.208",
+      "tx3power": "1.159",
+      "tx4bias": "37.648",
+      "tx4power": "0.941",
+      "voltage": "3.307"
+    }
+  }
+}

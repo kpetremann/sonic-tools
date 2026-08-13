@@ -1,0 +1,28 @@
+[
+  {
+    "current": "3.375",
+    "index": "1",
+    "led_status": "green",
+    "model": "MTEF-PSF-AC-A",
+    "name": "PSU 1",
+    "power": "40.4375",
+    "presence": "true",
+    "revision": "A4",
+    "serial": "SN0000000400",
+    "status": "OK",
+    "voltage": "11.996"
+  },
+  {
+    "current": "2.875",
+    "index": "2",
+    "led_status": "green",
+    "model": "MTEF-PSF-AC-A",
+    "name": "PSU 2",
+    "power": "34.5625",
+    "presence": "true",
+    "revision": "A4",
+    "serial": "SN0000000500",
+    "status": "OK",
+    "voltage": "12.031"
+  }
+]

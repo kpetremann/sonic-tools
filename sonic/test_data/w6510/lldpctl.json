@@ -1,0 +1,242 @@
+{
+  "lldp": {
+    "interface": [
+      {
+        "eth0": {
+          "age": "0 day, 01:23:51",
+          "chassis": {
+            "ra01-15-p02-dc1-mnet.example.net": {
+              "capability": [
+                {
+                  "enabled": true,
+                  "type": "Bridge"
+                },
+                {
+                  "enabled": true,
+                  "type": "Router"
+                }
+              ],
+              "descr": "Juniper Networks, Inc. ex3400-48t Ethernet Switch, kernel JUNOS 22.2R3-S4.10, Build date: 2024-06-22 04:01:39 UTC Copyright (c) 1996-2024 Juniper Networks, Inc.",
+              "id": {
+                "type": "mac",
+                "value": "00:00:5e:00:53:01"
+              }
+            }
+          },
+          "lldp-med": {
+            "capability": [
+              {
+                "available": true,
+                "type": "Capabilities"
+              },
+              {
+                "available": true,
+                "type": "Policy"
+              },
+              {
+                "available": true,
+                "type": "Location"
+              },
+              {
+                "available": true,
+                "type": "MDI/PSE"
+              }
+            ],
+            "device-type": "Network Connectivity Device"
+          },
+          "port": {
+            "auto-negotiation": {
+              "advertised": {
+                "fd": true,
+                "hd": false,
+                "type": "1000Base-T"
+              },
+              "current": "unknown",
+              "enabled": true,
+              "supported": true
+            },
+            "descr": "LOCAL:rb01-15-p02-dc1-pnet.example.net:eth0",
+            "id": {
+              "type": "ifname",
+              "value": "ge-0/0/44"
+            },
+            "mfs": "1514",
+            "ttl": "120"
+          },
+          "rid": "28",
+          "unknown-tlvs": {
+            "unknown-tlv": [
+              {
+                "len": "5",
+                "oui": "00,80,C2",
+                "subtype": "7",
+                "value": "01,00,00,00,00"
+              },
+              {
+                "len": "12",
+                "oui": "00,90,69",
+                "subtype": "1",
+                "value": "4E,58,33,36,32,30,31,37,30,37,35,37"
+              }
+            ]
+          },
+          "via": "LLDP",
+          "vlan": {
+            "pvid": true,
+            "value": "vlan-508",
+            "vlan-id": "508"
+          }
+        }
+      },
+      {
+        "Ethernet64": {
+          "age": "0 day, 01:23:18",
+          "chassis": {
+            "sp02-15-p02-dc1-pnet.example.net": {
+              "capability": [
+                {
+                  "enabled": true,
+                  "type": "Bridge"
+                },
+                {
+                  "enabled": true,
+                  "type": "Router"
+                },
+                {
+                  "enabled": false,
+                  "type": "Wlan"
+                },
+                {
+                  "enabled": false,
+                  "type": "Station"
+                }
+              ],
+              "descr": "SONiC Software Version: SONiC.202211-R002.0-abc123def - HwSku: ACS-MSN4700 - Distribution: Debian 11.8 - Kernel: 5.10.0-18-2-amd64",
+              "id": {
+                "type": "mac",
+                "value": "00:00:5e:00:53:09"
+              },
+              "mgmt-ip": "198.18.75.228"
+            }
+          },
+          "port": {
+            "descr": "LOCAL:ra01-15-p02-dc1-pnet.example.net:Ethernet32",
+            "id": {
+              "type": "local",
+              "value": "Ethernet16"
+            },
+            "ttl": "120"
+          },
+          "rid": "56",
+          "via": "LLDP"
+        }
+      },
+      {
+        "Ethernet96": {
+          "age": "0 day, 01:23:17",
+          "chassis": {
+            "sp04-15-p02-dc1-pnet.example.net": {
+              "capability": [
+                {
+                  "enabled": true,
+                  "type": "Bridge"
+                },
+                {
+                  "enabled": true,
+                  "type": "Router"
+                },
+                {
+                  "enabled": false,
+                  "type": "Wlan"
+                },
+                {
+                  "enabled": false,
+                  "type": "Station"
+                }
+              ],
+              "descr": "SONiC Software Version: SONiC.202211-R002.0-abc123def - HwSku: ACS-MSN4700 - Distribution: Debian 11.8 - Kernel: 5.10.0-18-2-amd64",
+              "id": {
+                "type": "mac",
+                "value": "00:00:5e:00:53:0a"
+              },
+              "mgmt-ip": "198.18.75.230"
+            }
+          },
+          "port": {
+            "descr": "LOCAL:rb01-15-p02-dc1-pnet.example.net:Ethernet96",
+            "id": {
+              "type": "local",
+              "value": "Ethernet16"
+            },
+            "ttl": "120"
+          },
+          "rid": "57",
+          "via": "LLDP"
+        }
+      },
+      {
+        "Ethernet8": {
+          "age": "0 day, 01:23:47",
+          "chassis": {
+            "id": {
+              "type": "mac",
+              "value": "00:00:5e:00:53:0b"
+            }
+          },
+          "port": {
+            "descr": "ConnectX-4 Lx, 25G/10G/1G SFP",
+            "id": {
+              "type": "mac",
+              "value": "00:00:5e:00:53:0c"
+            },
+            "ttl": "100"
+          },
+          "rid": "29",
+          "via": "LLDP"
+        }
+      },
+      {
+        "Ethernet10": {
+          "age": "0 day, 01:23:46",
+          "chassis": {
+            "id": {
+              "type": "mac",
+              "value": "00:00:5e:00:53:0d"
+            }
+          },
+          "port": {
+            "descr": "ConnectX-4 Lx, 25G/10G/1G SFP",
+            "id": {
+              "type": "mac",
+              "value": "00:00:5e:00:53:0e"
+            },
+            "ttl": "100"
+          },
+          "rid": "47",
+          "via": "LLDP"
+        }
+      },
+      {
+        "Ethernet17": {
+          "age": "0 day, 01:23:47",
+          "chassis": {
+            "id": {
+              "type": "mac",
+              "value": "00:00:5e:00:53:0f"
+            }
+          },
+          "port": {
+            "descr": "ConnectX-4 Lx, 25G/10G/1G SFP",
+            "id": {
+              "type": "mac",
+              "value": "00:00:5e:00:53:10"
+            },
+            "ttl": "100"
+          },
+          "rid": "30",
+          "via": "LLDP"
+        }
+      }
+    ]
+  }
+}

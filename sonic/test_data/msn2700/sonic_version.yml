@@ -1,0 +1,15 @@
+---
+build_version: '202211-R002.0-abc123def'
+debian_version: '11.8'
+kernel_version: '5.10.0-18-2-amd64'
+asic_type: mellanox
+asic_subtype: 'mellanox'
+commit_id: 'abc123def'
+branch: '202211-R002'
+release: '202211'
+build_date: Tue Oct 17 17:05:59 UTC 2023
+build_number: 0
+built_by: builder@localhost
+libswsscommon: 1.0.0
+sonic_utilities: 1.2
+sonic_os_version: 11

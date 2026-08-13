@@ -1,0 +1,5 @@
+
+snmp_rocommunity: public
+snmp_location: dc1-01.15
+snmp_contact: network
+
