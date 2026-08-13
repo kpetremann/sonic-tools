@@ -1,6 +1,7 @@
 package sonic
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net"
@@ -57,9 +58,9 @@ func (n Neighbor) PortName() string {
 	return n.Port
 }
 
-func LLDPNeighbors() (LLDP, error) {
+func LLDPNeighbors(ctx context.Context) (LLDP, error) {
 	var lldp LLDP
-	if err := runJSON(&lldp, "lldpctl", "-f", "json"); err != nil {
+	if err := runJSON(ctx, &lldp, "lldpctl", "-f", "json"); err != nil {
 		return LLDP{}, err
 	}
 	return lldp, nil

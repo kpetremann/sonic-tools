@@ -55,7 +55,7 @@ func NewIPAnalyzer(ctx context.Context, rdb *redis.Client, targetIP string) (IPA
 		a.localHostname = "local"
 	}
 
-	routeTable, err := sonic.IPRoute(a.netIP)
+	routeTable, err := sonic.IPRoute(ctx, a.netIP)
 	if err != nil {
 		return IPAnalyzer{}, fmt.Errorf("failed to get route table for %s: %w", targetIP, err)
 	}
@@ -71,7 +71,7 @@ func NewIPAnalyzer(ctx context.Context, rdb *redis.Client, targetIP string) (IPA
 		log.Println("failed to resolve neighbor interface:", err)
 	}
 
-	a.lldpNeighbors, err = sonic.LLDPNeighbors()
+	a.lldpNeighbors, err = sonic.LLDPNeighbors(ctx)
 	if err != nil {
 		log.Println("failed to get LLDP data:", err)
 	}

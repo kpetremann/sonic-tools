@@ -49,14 +49,14 @@ func Collect(ctx context.Context, rdb *redis.Client) Device {
 	}
 
 	// the interfaces are collected even when lldpd is down, the neighbors are then empty
-	lldp, err := LLDPNeighbors()
+	lldp, err := LLDPNeighbors(ctx)
 	if err != nil {
 		fail("lldp", err)
 	}
 	if device.Interfaces, err = Interfaces(ctx, rdb, lldp); err != nil {
 		fail("interfaces", err)
 	}
-	if device.PSU, err = PSUStatus(); err != nil {
+	if device.PSU, err = PSUStatus(ctx); err != nil {
 		fail("psu", err)
 	}
 	if device.Fans, err = FanStatus(ctx, rdb); err != nil {
@@ -68,10 +68,10 @@ func Collect(ctx context.Context, rdb *redis.Client) Device {
 	if device.BGPNeighbors, err = BGPStatus(ctx, rdb); err != nil {
 		fail("bgp", err)
 	}
-	if device.RouteMaps, err = RouteMaps(); err != nil {
+	if device.RouteMaps, err = RouteMaps(ctx); err != nil {
 		fail("route-maps", err)
 	}
-	if device.Containers, err = Containers(); err != nil {
+	if device.Containers, err = Containers(ctx); err != nil {
 		fail("containers", err)
 	}
 	if device.Users, err = HumanUsers(); err != nil {
@@ -80,10 +80,10 @@ func Collect(ctx context.Context, rdb *redis.Client) Device {
 	if device.SNMP, err = SNMPConfig(); err != nil {
 		fail("snmp", err)
 	}
-	if device.DHCPRelayProcesses, err = DHCPRelayProcesses(); err != nil {
+	if device.DHCPRelayProcesses, err = DHCPRelayProcesses(ctx); err != nil {
 		fail("dhcp relay", err)
 	}
-	if device.IPTables, err = IPTablesRules(); err != nil {
+	if device.IPTables, err = IPTablesRules(ctx); err != nil {
 		fail("iptables", err)
 	}
 

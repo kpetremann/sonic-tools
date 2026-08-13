@@ -2,6 +2,7 @@ package sonic
 
 import (
 	"bufio"
+	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -61,7 +62,7 @@ type UserParameters struct {
 	Groups     []string
 }
 
-func ConfigureUser(name string, params UserParameters) error {
+func ConfigureUser(ctx context.Context, name string, params UserParameters) error {
 	if params.Password == "" && len(params.PublicKeys) == 0 {
 		return fmt.Errorf("user '%s' must have either a password or a SSH key", name)
 	}
@@ -72,12 +73,12 @@ func ConfigureUser(name string, params UserParameters) error {
 	}
 	args = append(args, name)
 
-	if _, err := run("useradd", args...); err != nil {
+	if _, err := run(ctx, "useradd", args...); err != nil {
 		return err
 	}
 
 	if params.Password != "" {
-		if err := setPassword(name, params.Password); err != nil {
+		if err := setPassword(ctx, name, params.Password); err != nil {
 			return err
 		}
 	}
@@ -91,18 +92,18 @@ func ConfigureUser(name string, params UserParameters) error {
 	return nil
 }
 
-func RemoveUser(name string) error {
-	_, err := run("userdel", "-r", name)
+func RemoveUser(ctx context.Context, name string) error {
+	_, err := run(ctx, "userdel", "-r", name)
 	return err
 }
 
-func setPassword(name, password string) error {
-	hash, err := run("openssl", "passwd", "-1", password)
+func setPassword(ctx context.Context, name, password string) error {
+	hash, err := run(ctx, "openssl", "passwd", "-1", password)
 	if err != nil {
 		return err
 	}
 
-	cmd := exec.Command("chpasswd", "-e")
+	cmd := exec.CommandContext(ctx, "chpasswd", "-e")
 	cmd.Stdin = strings.NewReader(fmt.Sprintf("%s:%s", name, strings.TrimSpace(hash)))
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("chpasswd failed: %w", err)

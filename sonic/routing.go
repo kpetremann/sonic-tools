@@ -1,6 +1,7 @@
 package sonic
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/netip"
@@ -49,14 +50,14 @@ type Route struct {
 }
 
 // IPRoute returns the routes toward the given address.
-func IPRoute(addr netip.Addr) (RouteTable, error) {
+func IPRoute(ctx context.Context, addr netip.Addr) (RouteTable, error) {
 	family := "ip"
 	if !addr.Is4() {
 		family = "ipv6"
 	}
 
 	routeTable := RouteTable{}
-	if err := vtyshJSON(&routeTable, fmt.Sprintf("show %s route %s json", family, addr)); err != nil {
+	if err := vtyshJSON(ctx, &routeTable, fmt.Sprintf("show %s route %s json", family, addr)); err != nil {
 		return nil, err
 	}
 

@@ -124,7 +124,7 @@ func run() error {
 		Short: "Set interface description using LLDP data",
 		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(_ *cobra.Command, args []string) error {
-			lldp, err := sonic.LLDPNeighbors()
+			lldp, err := sonic.LLDPNeighbors(ctx)
 			if err != nil {
 				return err
 			}

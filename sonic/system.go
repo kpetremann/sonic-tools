@@ -1,6 +1,7 @@
 package sonic
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -44,8 +45,8 @@ type dockerContainer struct {
 	Status string `json:"Status"`
 }
 
-func Containers() ([]Container, error) {
-	out, err := run("docker", "ps", "--all", "--format", "{{json .}}")
+func Containers(ctx context.Context) ([]Container, error) {
+	out, err := run(ctx, "docker", "ps", "--all", "--format", "{{json .}}")
 	if err != nil {
 		return nil, err
 	}
@@ -70,8 +71,8 @@ func parseContainers(out string) ([]Container, error) {
 
 // DHCPRelayProcesses returns the number of relay processes running in the dhcp_relay container.
 // There is one dhcrelay process per relayed VLAN, the manager and monitor processes are not counted.
-func DHCPRelayProcesses() (int, error) {
-	out, err := run("docker", "top", "dhcp_relay", "-e")
+func DHCPRelayProcesses(ctx context.Context) (int, error) {
+	out, err := run(ctx, "docker", "top", "dhcp_relay", "-e")
 	if err != nil {
 		return 0, err
 	}
@@ -121,13 +122,13 @@ type IPTablesRule struct {
 	Raw          string `json:"raw"`
 }
 
-func IPTablesRules() (IPTables, error) {
-	v4, err := run("iptables", "-S")
+func IPTablesRules(ctx context.Context) (IPTables, error) {
+	v4, err := run(ctx, "iptables", "-S")
 	if err != nil {
 		return IPTables{}, err
 	}
 
-	v6, err := run("ip6tables", "-S")
+	v6, err := run(ctx, "ip6tables", "-S")
 	if err != nil {
 		return IPTables{IPv4: parseIPTables(v4)}, err
 	}

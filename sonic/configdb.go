@@ -1,14 +1,15 @@
 package sonic
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
 )
 
-func RunningConfigDB() (map[string]any, error) {
+func RunningConfigDB(ctx context.Context) (map[string]any, error) {
 	config := map[string]any{}
-	if err := runJSON(&config, "show", "runningconfiguration", "all"); err != nil {
+	if err := runJSON(ctx, &config, "show", "runningconfiguration", "all"); err != nil {
 		return nil, err
 	}
 	return config, nil

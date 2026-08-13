@@ -211,7 +211,7 @@ func (u Uptime) MarshalJSON() ([]byte, error) {
 
 // BGPStatus returns the neighbors of the device, with the local interface of the eBGP sessions.
 func BGPStatus(ctx context.Context, rdb *redis.Client) (map[string]BGPNeighbor, error) {
-	neighbors, err := BGPNeighbors()
+	neighbors, err := BGPNeighbors(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -282,9 +282,9 @@ func localInterface(addrs []InterfaceAddr, addr netip.Addr) string {
 	return name
 }
 
-func BGPNeighbors() (map[string]BGPNeighbor, error) {
+func BGPNeighbors(ctx context.Context) (map[string]BGPNeighbor, error) {
 	peers := map[string]BGPNeighbor{}
-	if err := vtyshJSON(&peers, "show bgp neighbors json"); err != nil {
+	if err := vtyshJSON(ctx, &peers, "show bgp neighbors json"); err != nil {
 		return nil, err
 	}
 	return peers, nil
@@ -293,7 +293,7 @@ func BGPNeighbors() (map[string]BGPNeighbor, error) {
 // FindBGPNeighbor returns a single neighbor, with the local interface of an eBGP session.
 func FindBGPNeighbor(ctx context.Context, rdb *redis.Client, remoteAddr string) (BGPNeighbor, error) {
 	peers := map[string]BGPNeighbor{}
-	if err := vtyshJSON(&peers, fmt.Sprintf("show bgp neighbors %s json", remoteAddr)); err != nil {
+	if err := vtyshJSON(ctx, &peers, fmt.Sprintf("show bgp neighbors %s json", remoteAddr)); err != nil {
 		return BGPNeighbor{}, err
 	}
 
@@ -308,8 +308,8 @@ func FindBGPNeighbor(ctx context.Context, rdb *redis.Client, remoteAddr string) 
 	return peers[remoteAddr], nil
 }
 
-func RouteMaps() (map[string]RouteMap, error) {
-	res, err := vtysh("show route-map json")
+func RouteMaps(ctx context.Context) (map[string]RouteMap, error) {
+	res, err := vtysh(ctx, "show route-map json")
 	if err != nil {
 		return nil, err
 	}
@@ -342,10 +342,10 @@ func parseRouteMaps(out string) (map[string]RouteMap, error) {
 	return routeMaps, nil
 }
 
-func FindRouteMap(name string) (RouteMap, error) {
+func FindRouteMap(ctx context.Context, name string) (RouteMap, error) {
 	// we get all route-maps and then filter in the code, because in older versions (< FRR 8.5)
 	// 'show route-map <name> json' does not work
-	routeMaps, err := RouteMaps()
+	routeMaps, err := RouteMaps(ctx)
 	if err != nil {
 		return RouteMap{}, err
 	}
@@ -358,8 +358,8 @@ func FindRouteMap(name string) (RouteMap, error) {
 	return routeMap, nil
 }
 
-func RunningBGPConfig() (string, error) {
-	return vtysh("show running-config")
+func RunningBGPConfig(ctx context.Context) (string, error) {
+	return vtysh(ctx, "show running-config")
 }
 
 func StartupBGPConfig() (string, error) {

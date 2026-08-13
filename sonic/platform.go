@@ -49,7 +49,7 @@ func PlatformInfo(ctx context.Context, rdb *redis.Client) (Platform, error) {
 	}
 
 	// the EEPROM is not readable on all platforms
-	if serial, err := run("decode-syseeprom", "-s"); err == nil {
+	if serial, err := run(ctx, "decode-syseeprom", "-s"); err == nil {
 		platform.Serial = strings.TrimSpace(serial)
 	}
 
@@ -84,9 +84,9 @@ type PSU struct {
 	Power     NAFloat `json:"power"`
 }
 
-func PSUStatus() ([]PSU, error) {
+func PSUStatus(ctx context.Context) ([]PSU, error) {
 	psu := []PSU{}
-	if err := runJSON(&psu, "psushow", "-s", "--json"); err != nil {
+	if err := runJSON(ctx, &psu, "psushow", "-s", "--json"); err != nil {
 		return nil, err
 	}
 	return psu, nil

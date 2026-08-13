@@ -38,8 +38,8 @@ func output(data any, rendered string) error {
 
 // lldpNeighbors is best effort: when lldpd is down the neighbor columns are left empty
 // instead of failing the whole command.
-func lldpNeighbors() sonic.LLDP {
-	lldp, err := sonic.LLDPNeighbors()
+func lldpNeighbors(ctx context.Context) sonic.LLDP {
+	lldp, err := sonic.LLDPNeighbors(ctx)
 	if err != nil {
 		log.Println("LLDP is not available:", err)
 	}
@@ -146,7 +146,7 @@ func run() error {
 			GroupID: deviceGroup.ID,
 			Args:    cobra.MaximumNArgs(1),
 			RunE: func(_ *cobra.Command, args []string) error {
-				lldp := lldpNeighbors()
+				lldp := lldpNeighbors(ctx)
 
 				if len(args) == 1 {
 					intf, err := sonic.FindInterface(ctx, rdb, lldp, args[0])
@@ -204,14 +204,14 @@ func run() error {
 			Args:    cobra.MaximumNArgs(1),
 			RunE: func(_ *cobra.Command, args []string) error {
 				if len(args) == 1 {
-					routeMap, err := sonic.FindRouteMap(args[0])
+					routeMap, err := sonic.FindRouteMap(ctx, args[0])
 					if err != nil {
 						return err
 					}
 					return output(routeMap, view.RouteMap(args[0], routeMap))
 				}
 
-				routeMaps, err := sonic.RouteMaps()
+				routeMaps, err := sonic.RouteMaps(ctx)
 				if err != nil {
 					return err
 				}
@@ -224,7 +224,7 @@ func run() error {
 			GroupID: deviceGroup.ID,
 			Args:    cobra.NoArgs,
 			RunE: func(_ *cobra.Command, _ []string) error {
-				psu, err := sonic.PSUStatus()
+				psu, err := sonic.PSUStatus(ctx)
 				if err != nil {
 					return err
 				}
@@ -263,7 +263,7 @@ func run() error {
 			GroupID: deviceGroup.ID,
 			Args:    cobra.NoArgs,
 			RunE: func(_ *cobra.Command, _ []string) error {
-				containers, err := sonic.Containers()
+				containers, err := sonic.Containers(ctx)
 				if err != nil {
 					return err
 				}
@@ -276,7 +276,7 @@ func run() error {
 			GroupID: deviceGroup.ID,
 			Args:    cobra.NoArgs,
 			RunE: func(_ *cobra.Command, _ []string) error {
-				processes, err := sonic.DHCPRelayProcesses()
+				processes, err := sonic.DHCPRelayProcesses(ctx)
 				if err != nil {
 					return err
 				}
@@ -315,7 +315,7 @@ func run() error {
 			GroupID: deviceGroup.ID,
 			Args:    cobra.NoArgs,
 			RunE: func(_ *cobra.Command, _ []string) error {
-				rules, err := sonic.IPTablesRules()
+				rules, err := sonic.IPTablesRules(ctx)
 				if err != nil {
 					return err
 				}
