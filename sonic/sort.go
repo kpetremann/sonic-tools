@@ -2,10 +2,34 @@ package sonic
 
 import (
 	"cmp"
+	"net/netip"
 	"slices"
 	"strconv"
 	"strings"
 )
+
+// SortPeers sorts BGP peers on the value of their address rather than on its digits, so that
+// 192.0.2.9 comes before 192.0.2.10 and the IPv4 sessions before the IPv6 ones. FRR keys the
+// unnumbered peers by interface name, those are sorted as names and come last.
+func SortPeers(peers []string) {
+	slices.SortFunc(peers, comparePeers)
+}
+
+func comparePeers(a, b string) int {
+	addrA, errA := netip.ParseAddr(a)
+	addrB, errB := netip.ParseAddr(b)
+
+	switch {
+	case errA == nil && errB == nil:
+		return addrA.Compare(addrB)
+	case errA == nil:
+		return -1
+	case errB == nil:
+		return 1
+	}
+
+	return compareNames(a, b)
+}
 
 // sortNames sorts names on their numbers rather than on their digits, so that
 // Ethernet2 comes before Ethernet10 and Fantray2_1 before Fantray10_1.

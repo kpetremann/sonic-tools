@@ -218,7 +218,10 @@ func BGPNeighbors(peers map[string]sonic.BGPNeighbor) string {
 		"Neighbor", "Description", "Peer group", "Remote AS", "State", "Uptime", "Received", "Sent",
 		"Interface", "Interface alias", "Interface state",
 	)
-	for _, addr := range slices.Sorted(maps.Keys(peers)) {
+	addrs := slices.Collect(maps.Keys(peers))
+	sonic.SortPeers(addrs)
+
+	for _, addr := range addrs {
 		neighbor := peers[addr]
 		received, sent := 0, 0
 		for _, safi := range neighbor.SAFI {
