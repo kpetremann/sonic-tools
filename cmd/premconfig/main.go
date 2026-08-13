@@ -11,7 +11,6 @@ import (
 	"github.com/premday/sonic-tools/internal/view"
 	"github.com/premday/sonic-tools/sonic"
 
-	redis "github.com/redis/go-redis/v9"
 	"github.com/spf13/cobra"
 )
 
@@ -53,10 +52,10 @@ func sanitizeDescription(description string) string {
 	return descrRegex.ReplaceAllString(description, "")
 }
 
-func setDescription(ctx context.Context, rdb *redis.Client, intf, description string, dryRun bool) descriptionResult {
+func setDescription(ctx context.Context, editor *sonic.PortEditor, intf, description string, dryRun bool) descriptionResult {
 	result := descriptionResult{Interface: intf, NewDescription: sanitizeDescription(description)}
 
-	port, err := sonic.FindPortConfig(ctx, rdb, intf)
+	port, err := editor.Config(ctx, intf)
 	if err != nil {
 		result.Status = fmt.Sprintf("error: %s", err)
 		return result
@@ -69,7 +68,7 @@ func setDescription(ctx context.Context, rdb *redis.Client, intf, description st
 	case dryRun:
 		result.Status = "dry-run"
 	default:
-		if err := sonic.SetPortDescription(ctx, rdb, intf, result.NewDescription); err != nil {
+		if err := editor.SetDescription(ctx, intf, result.NewDescription); err != nil {
 			result.Status = fmt.Sprintf("error: %s", err)
 			return result
 		}
@@ -80,10 +79,10 @@ func setDescription(ctx context.Context, rdb *redis.Client, intf, description st
 }
 
 // setDescriptionFromLLDP names an interface after its LLDP neighbor: '<prefix><remote host>:<remote port>'.
-func setDescriptionFromLLDP(ctx context.Context, rdb *redis.Client, lldp sonic.LLDP, intf, prefix string, dryRun bool) descriptionResult {
+func setDescriptionFromLLDP(ctx context.Context, editor *sonic.PortEditor, lldp sonic.LLDP, intf, prefix string, dryRun bool) descriptionResult {
 	neighbor := lldp.Neighbor(intf)
 	if neighbor.Host == "" {
-		port, err := sonic.FindPortConfig(ctx, rdb, intf)
+		port, err := editor.Config(ctx, intf)
 		if err != nil {
 			return descriptionResult{Interface: intf, Status: fmt.Sprintf("error: %s", err)}
 		}
@@ -100,7 +99,7 @@ func setDescriptionFromLLDP(ctx context.Context, rdb *redis.Client, lldp sonic.L
 		description = fmt.Sprintf("%s:%s", description, port)
 	}
 
-	return setDescription(ctx, rdb, intf, description, dryRun)
+	return setDescription(ctx, editor, intf, description, dryRun)
 }
 
 func main() {
@@ -129,6 +128,13 @@ func run() error {
 				return err
 			}
 
+			// a single connection for the whole run, instead of two per interface
+			editor, err := sonic.NewPortEditor(ctx, rdb)
+			if err != nil {
+				return err
+			}
+			defer editor.Close()
+
 			prefix := ""
 			if len(args) > 1 {
 				prefix = args[1]
@@ -136,7 +142,7 @@ func run() error {
 
 			results := []descriptionResult{}
 			if args[0] != "all" {
-				results = append(results, setDescriptionFromLLDP(ctx, rdb, lldp, args[0], prefix, dryRun))
+				results = append(results, setDescriptionFromLLDP(ctx, editor, lldp, args[0], prefix, dryRun))
 			} else {
 				neighbors, err := sonic.InterfaceNeighbors(ctx, rdb)
 				if err != nil {
@@ -148,7 +154,7 @@ func run() error {
 						continue
 					}
 
-					result := setDescriptionFromLLDP(ctx, rdb, lldp, intf, prefix, dryRun)
+					result := setDescriptionFromLLDP(ctx, editor, lldp, intf, prefix, dryRun)
 					if result.Status == "skipped" && !verbose {
 						continue
 					}
@@ -167,7 +173,13 @@ func run() error {
 		Short: "Set interface description",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(_ *cobra.Command, args []string) error {
-			result := setDescription(ctx, rdb, args[0], args[1], dryRun)
+			editor, err := sonic.NewPortEditor(ctx, rdb)
+			if err != nil {
+				return err
+			}
+			defer editor.Close()
+
+			result := setDescription(ctx, editor, args[0], args[1], dryRun)
 			fmt.Print("\n" + renderResults([]descriptionResult{result}, dryRun) + "\n")
 
 			return nil

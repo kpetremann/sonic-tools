@@ -289,32 +289,39 @@ func domValue(fields map[string]string, name string) NAFloat {
 	return measure
 }
 
-// FindPortConfig returns the CONFIG_DB PORT entry of an interface.
-func FindPortConfig(ctx context.Context, rdb *redis.Client, intf string) (PortConfig, error) {
+// PortEditor reads and writes the CONFIG_DB port table over a single connection. Editing every
+// interface of a device otherwise costs one SELECT per read and one per write; the caller must
+// close it.
+type PortEditor struct {
+	conn *redis.Conn
+}
+
+func NewPortEditor(ctx context.Context, rdb *redis.Client) (*PortEditor, error) {
 	conn, err := openDB(ctx, rdb, CONFIGDB)
 	if err != nil {
-		return PortConfig{}, err
+		return nil, err
 	}
-	defer conn.Close()
+	return &PortEditor{conn: conn}, nil
+}
 
+func (e *PortEditor) Close() error {
+	return e.conn.Close()
+}
+
+// Config returns the PORT entry of an interface, empty when the interface does not exist.
+func (e *PortEditor) Config(ctx context.Context, intf string) (PortConfig, error) {
 	var config PortConfig
-	if err := conn.HGetAll(ctx, "PORT|"+intf).Scan(&config); err != nil {
+	if err := e.conn.HGetAll(ctx, "PORT|"+intf).Scan(&config); err != nil {
 		return PortConfig{}, fmt.Errorf("failed to get configuration of %s: %w", intf, err)
 	}
 
 	return config, nil
 }
 
-// SetPortDescription writes the description of an interface in CONFIG_DB.
-func SetPortDescription(ctx context.Context, rdb *redis.Client, intf, description string) error {
-	conn, err := openDB(ctx, rdb, CONFIGDB)
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-
+// SetDescription writes the description of an interface, which must exist.
+func (e *PortEditor) SetDescription(ctx context.Context, intf, description string) error {
 	key := "PORT|" + intf
-	exists, err := conn.Exists(ctx, key).Result()
+	exists, err := e.conn.Exists(ctx, key).Result()
 	if err != nil {
 		return fmt.Errorf("failed to check interface %s: %w", intf, err)
 	}
@@ -322,11 +329,34 @@ func SetPortDescription(ctx context.Context, rdb *redis.Client, intf, descriptio
 		return fmt.Errorf("interface %s does not exist", intf)
 	}
 
-	if err := conn.HSet(ctx, key, "description", description).Err(); err != nil {
+	if err := e.conn.HSet(ctx, key, "description", description).Err(); err != nil {
 		return fmt.Errorf("failed to set description of %s: %w", intf, err)
 	}
 
 	return nil
+}
+
+// FindPortConfig returns the CONFIG_DB PORT entry of an interface. Reading several of them is
+// what PortEditor is for, this opens a connection of its own.
+func FindPortConfig(ctx context.Context, rdb *redis.Client, intf string) (PortConfig, error) {
+	editor, err := NewPortEditor(ctx, rdb)
+	if err != nil {
+		return PortConfig{}, err
+	}
+	defer editor.Close()
+
+	return editor.Config(ctx, intf)
+}
+
+// SetPortDescription writes the description of an interface in CONFIG_DB.
+func SetPortDescription(ctx context.Context, rdb *redis.Client, intf, description string) error {
+	editor, err := NewPortEditor(ctx, rdb)
+	if err != nil {
+		return err
+	}
+	defer editor.Close()
+
+	return editor.SetDescription(ctx, intf, description)
 }
 
 // InterfaceNeighbors returns the expected neighbor of each interface, from the CONFIG_DB DEVICE_NEIGHBOR table.
