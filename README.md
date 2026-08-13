@@ -31,7 +31,7 @@ premshow dhcp-relay          # number of relay processes in the dhcp_relay conta
 premshow users               # local users
 premshow snmp                # SNMP configuration
 premshow iptables            # iptables and ip6tables rules
-premshow sysctl              # kernel settings required by the monitoring tools
+premshow sysctl              # some kernel settings
 ```
 
 `premshow all` never fails on a single section: what could not be collected is reported in `Errors`.

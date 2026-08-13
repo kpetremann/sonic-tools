@@ -9,7 +9,6 @@ import (
 	"strings"
 )
 
-// SysctlKeys are the kernel settings required by the monitoring and probing tools.
 var SysctlKeys = []string{
 	"net.ipv4.icmp_ratemask",
 	"net.ipv6.icmp.ratemask",

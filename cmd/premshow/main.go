@@ -324,7 +324,7 @@ func run() error {
 		},
 		&cobra.Command{
 			Use:     "sysctl",
-			Short:   "Show the kernel settings required by the monitoring tools",
+			Short:   "Show some kernel settings",
 			GroupID: deviceGroup.ID,
 			Args:    cobra.NoArgs,
 			RunE: func(_ *cobra.Command, _ []string) error {
